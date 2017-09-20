@@ -50,6 +50,7 @@ public class TUserController extends BaseController {
 	@RequestMapping(value = {"list", ""})
 	public String list(TUser tUser, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<TUser> page = tUserService.findPage(new Page<TUser>(request, response), tUser); 
+		model.addAttribute("tUser", tUser);
 		model.addAttribute("page", page);
 		return "modules/drh/tUserList";
 	}
