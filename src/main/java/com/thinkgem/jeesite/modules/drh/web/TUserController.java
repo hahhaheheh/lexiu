@@ -79,5 +79,8 @@ public class TUserController extends BaseController {
 		addMessage(redirectAttributes, "删除用户信息成功");
 		return "redirect:"+Global.getAdminPath()+"/drh/tUser/?repage";
 	}
+	public static void main(String[] args) {
+		
+	}
 
 }
