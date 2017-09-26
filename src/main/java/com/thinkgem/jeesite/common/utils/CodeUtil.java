@@ -1,4 +1,4 @@
-package com.lexiu.app.utils;
+package com.thinkgem.jeesite.common.utils;
 
 import java.util.Random;
 
