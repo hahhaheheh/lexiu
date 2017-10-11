@@ -1,8 +1,13 @@
 package com.thinkgem.jeesite.modules.drh.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.thinkgem.jeesite.common.persistence.DataEntity;
 
 import java.util.Date;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 /**
  * Created by root on 2017/9/26.
