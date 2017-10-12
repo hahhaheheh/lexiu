@@ -1,5 +1,7 @@
 package com.thinkgem.jeesite.modules.drh.service;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Created by root on 2017/9/26.
  */

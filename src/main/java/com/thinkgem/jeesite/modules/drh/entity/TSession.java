@@ -1,6 +1,8 @@
 package com.thinkgem.jeesite.modules.drh.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.thinkgem.jeesite.common.persistence.DataEntity;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
 
@@ -71,7 +73,6 @@ public class TSession extends DataEntity<TSession> {
         this.status = status;
     }
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @NotNull(message="startTime不能为空")
     public Date getStartTime() {
         return startTime;
     }

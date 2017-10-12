@@ -1,9 +1,12 @@
 package com.thinkgem.jeesite.modules.drh.resource;
 
 import com.thinkgem.jeesite.common.utils.CodeUtil;
+import com.thinkgem.jeesite.common.utils.JedisUtils;
+import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.drh.ResultModel;
 import com.thinkgem.jeesite.modules.drh.entity.TSession;
 import com.thinkgem.jeesite.modules.drh.entity.TUser;
+import com.thinkgem.jeesite.modules.drh.service.IMUserService;
 import com.thinkgem.jeesite.modules.drh.service.SMSService;
 import com.thinkgem.jeesite.modules.drh.service.TSessionService;
 import com.thinkgem.jeesite.modules.drh.service.TUserService;
@@ -36,6 +39,9 @@ public class TUserResource {
     @Autowired
     private TSessionService sessionService;
 
+    @Autowired
+    private IMUserService imUserService;
+
     /**
      * 用户注册
      * @return
@@ -51,8 +57,11 @@ public class TUserResource {
                 user = new TUser();
                 user.setUsername(mobile);
                 user.setPassword(password);
-                userService.save(user);
-                return new ResultModel(0,"success",new LinkedHashMap());
+                if(imUserService.regToIM(mobile,password)!=null){
+                    userService.save(user);
+                    return new ResultModel(0,"success",new LinkedHashMap());
+                }
+                return new ResultModel(1,"环信注册异常",new LinkedHashMap());
             }else {
                 return new ResultModel(1,"用户名已存在",new LinkedHashMap());
             }
@@ -70,24 +79,25 @@ public class TUserResource {
     @RequestMapping("/send/validCode")
     @ResponseBody
     public ResultModel sendValidCode(HttpServletRequest request, String mobile){
-        TSession entiry = new TSession();
-        entiry.setUuid(mobile);
-        entiry.setType(0);
+//        TSession entiry = new TSession();
+//        entiry.setUuid(mobile);
+//        entiry.setType(0);
         try{
             String code = CodeUtil.getRandomStr(4);
-            entiry = this.sessionService.get(entiry);
-            if (entiry==null){
-                entiry = new TSession();
-                entiry.setUuid(mobile);
-                entiry.setContext(code);
-                entiry.setType(0);
-                entiry.setStatus(1);
-                entiry.setStartTime(new Date());
-            }else {
-                entiry.setStartTime(new Date());
-                entiry.setContext(code);
-            }
-            sessionService.save(entiry);
+//            entiry = this.sessionService.get(entiry);
+//            if (entiry==null){
+//                entiry = new TSession();
+//                entiry.setUuid(mobile);
+//                entiry.setContext(code);
+//                entiry.setType(0);
+//                entiry.setStatus(1);
+//                entiry.setStartTime(new Date());
+//            }else {
+//                entiry.setStartTime(new Date());
+//                entiry.setContext(code);
+//            }
+//            sessionService.save(entiry);
+            JedisUtils.set("code"+mobile,code,60);
             smsService.sendAuthCode(mobile, code);
             return new ResultModel(0,"success",new LinkedHashMap()).put("code",code);
         }catch (Exception e){
@@ -104,16 +114,17 @@ public class TUserResource {
     @RequestMapping("/check/validCode")
     @ResponseBody
     public ResultModel checkValidCode(HttpServletRequest request, String mobile, String code){
-        TSession sessionEntity = new TSession();
-        sessionEntity.setUuid(mobile);
-        sessionEntity.setType(0);
+//        TSession sessionEntity = new TSession();
+//        sessionEntity.setUuid(mobile);
+//        sessionEntity.setType(0);
         try{
-            sessionEntity = this.sessionService.get(sessionEntity);
-            if (sessionEntity==null||!code.equals(sessionEntity.getContext())){
+//            sessionEntity = this.sessionService.get(sessionEntity);
+            String validCode = JedisUtils.get("code"+mobile);
+            if (org.springframework.util.StringUtils.isEmpty(validCode)||!code.equals(validCode)){
                 return new ResultModel(1,"验证码不正确",new LinkedHashMap());
             }else {
-                sessionEntity.setStatus(0);
-                this.sessionService.save(sessionEntity);
+//                sessionEntity.setStatus(0);
+//                this.sessionService.save(sessionEntity);
                 return new ResultModel(0,"success",new LinkedHashMap());
             }
         }catch (Exception e){
@@ -139,14 +150,16 @@ public class TUserResource {
             if(user==null){
                 return new ResultModel(1,"用户名和密码不匹配",new LinkedHashMap());
             }else {
-                TSession sessionEntity = new TSession();
-                sessionEntity.setUuid(mobile);
-                sessionEntity.setContext(user.getId());
-                sessionEntity.setType(1);
-                sessionEntity.setStatus(1);
-                sessionEntity.setStartTime(new Date());
-                sessionService.save(sessionEntity);
-                return new ResultModel(0,"success",new LinkedHashMap()).put("user",user);
+//                TSession sessionEntity = new TSession();
+//                sessionEntity.setUuid(mobile);
+//                sessionEntity.setContext(user.getId());
+//                sessionEntity.setType(1);
+//                sessionEntity.setStatus(1);
+//                sessionEntity.setStartTime(new Date());
+//                sessionService.save(sessionEntity);
+                String token = System.currentTimeMillis()+user.getId().toString();
+                JedisUtils.setObject(token,user,0);
+                return new ResultModel(0,"success",new LinkedHashMap()).put("token",token);
             }
         }catch (Exception e){
             return new ResultModel(1,"系统错误",new LinkedHashMap());
@@ -155,17 +168,14 @@ public class TUserResource {
     /**
      * 重置登录密码
      * @param request
-     * @param mobile
      * @return
      */
     @RequestMapping("/password/update")
     @ResponseBody
-    public ResultModel findPwd(HttpServletRequest request, String mobile, String password){
-        TUser user = new TUser();
-        user.setUsername(mobile);
-        user = userService.get(user);
-        if(user==null){
-            return new ResultModel(1,"该用户不存在",new LinkedHashMap());
+    public ResultModel findPwd(HttpServletRequest request, String token, String password){
+        TUser user = (TUser) JedisUtils.getObject(token);
+        if (user==null){
+            return new ResultModel(1000,"用户未登录",null);
         }else {
             user.setPassword(password);
             userService.save(user);
@@ -190,8 +200,12 @@ public class TUserResource {
      */
     @RequestMapping("/info/myself")
     @ResponseBody
-    public ResultModel getUserInfo(String userId){
-        return new ResultModel(0,"success",new LinkedHashMap()).put("user",userService.get(userId));
+    public ResultModel getUserInfo(String token){
+        TUser user = (TUser) JedisUtils.getObject(token);
+        if (user==null){
+            return new ResultModel(1000,"用户未登录",null);
+        }
+        return new ResultModel(0,"success",new LinkedHashMap()).put("user",user);
     }
 
 }
