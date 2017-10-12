@@ -6,6 +6,10 @@ import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 /**
  * Created by root on 2017/9/26.
  */
