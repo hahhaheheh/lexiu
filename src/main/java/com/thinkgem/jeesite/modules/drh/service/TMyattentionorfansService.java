@@ -5,6 +5,7 @@ package com.thinkgem.jeesite.modules.drh.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +22,8 @@ import com.thinkgem.jeesite.modules.drh.dao.TMyattentionorfansDao;
 @Service
 @Transactional(readOnly = true)
 public class TMyattentionorfansService extends CrudService<TMyattentionorfansDao, TMyattentionorfans> {
-
+	@Autowired
+	private TMyattentionorfansDao tMyattentionorfansDao;
 	public TMyattentionorfans get(String id) {
 		return super.get(id);
 	}
@@ -42,6 +44,14 @@ public class TMyattentionorfansService extends CrudService<TMyattentionorfansDao
 	@Transactional(readOnly = false)
 	public void delete(TMyattentionorfans tMyattentionorfans) {
 		super.delete(tMyattentionorfans);
+	}
+	@Transactional(readOnly = false)
+	public  String getFansCount(String attentionid){
+		return tMyattentionorfansDao.getFansCount(attentionid);
+	}
+	@Transactional(readOnly = false)
+	public  String getAttentionCount(String fansid){
+		return tMyattentionorfansDao.getAttentionCount(fansid);
 	}
 	
 }

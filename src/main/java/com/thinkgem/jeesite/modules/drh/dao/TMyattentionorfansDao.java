@@ -15,4 +15,6 @@ import com.thinkgem.jeesite.modules.drh.entity.TMyattentionorfans;
 @MyBatisDao
 public interface TMyattentionorfansDao extends CrudDao<TMyattentionorfans> {
 	
+	public  String getFansCount(String attentionid);
+	public  String getAttentionCount(String fansid);
 }

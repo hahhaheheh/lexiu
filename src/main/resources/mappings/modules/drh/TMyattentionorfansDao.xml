@@ -45,7 +45,20 @@
 			</otherwise>
 		</choose>
 	</select>
-	
+	<!-- 根据用户粉丝个数 -->
+	<select id="getFansCount" resultType="String">
+		SELECT 
+			count(*)
+		FROM t_myattentionorfans a
+		WHERE a.attentionid = #{attentionid}
+	</select>
+	<!-- 根据用户关注者个数 -->
+	<select id="getAttentionCount" resultType="String">
+		SELECT 
+			count(*)
+		FROM t_myattentionorfans a
+		WHERE a.fansid = #{fansid}
+	</select>
 	<select id="findAllList" resultType="TMyattentionorfans">
 		SELECT 
 			<include refid="tMyattentionorfansColumns"/>
