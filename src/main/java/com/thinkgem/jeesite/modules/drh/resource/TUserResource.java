@@ -10,16 +10,21 @@ import com.thinkgem.jeesite.modules.drh.service.IMUserService;
 import com.thinkgem.jeesite.modules.drh.service.SMSService;
 import com.thinkgem.jeesite.modules.drh.service.TSessionService;
 import com.thinkgem.jeesite.modules.drh.service.TUserService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import redis.clients.jedis.Jedis;
+
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.Date;
 import java.util.LinkedHashMap;
 
@@ -146,7 +151,7 @@ public class TUserResource {
         user.setUsername(mobile);
         user.setPassword(password);
         try{
-            user = userService.get(user);
+            user = userService.getByObj(user);
             if(user==null){
                 return new ResultModel(1,"用户名和密码不匹配",new LinkedHashMap());
             }else {

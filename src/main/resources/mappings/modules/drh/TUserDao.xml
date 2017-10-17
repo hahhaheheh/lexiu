@@ -34,14 +34,7 @@
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="get" resultType="TUser" parameterType="TUser">
-		SELECT 
-			<include refid="tUserColumns"/>
-		FROM t_user a
-		<include refid="tUserJoins"/>
-	</select>
-	
-	<select id="findList" resultType="TUser">
+	<select id="getByObj" resultType="TUser" parameterType="TUser">
 		SELECT 
 			<include refid="tUserColumns"/>
 		FROM t_user a
@@ -54,6 +47,13 @@
 				AND a.password = #{password}
 			</if>
 		</where>
+	</select>
+	
+	<select id="findList" resultType="TUser">
+		SELECT 
+			<include refid="tUserColumns"/>
+		FROM t_user a
+		<include refid="tUserJoins"/>
 		<where>
 			
 			<if test="sid != null and sid != ''">

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.drh.dao.TOrgDao">
+    
+	<sql id="tOrgColumns">
+		a.id AS "id",
+		a.title AS "title",
+		a.tags AS "tags",
+		a.adress AS "adress",
+		a.longitude AS "longitude",
+		a.latitude AS "latitude",
+		a.imageurl AS "imageurl",
+		a.startlevel AS "startlevel"
+	</sql>
+	
+	<sql id="tOrgJoins">
+	</sql>
+    
+	<select id="get" resultType="TOrg">
+		SELECT 
+			<include refid="tOrgColumns"/>
+		FROM t_org a
+		<include refid="tOrgJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TOrg">
+		SELECT 
+			<include refid="tOrgColumns"/>
+		FROM t_org a
+		<include refid="tOrgJoins"/>
+		<where>
+			
+			<if test="title != null and title != ''">
+				AND a.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+			<if test="tags != null and tags != ''">
+				AND a.tags LIKE 
+					<if test="dbName == 'oracle'">'%'||#{tags}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{tags}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{tags},'%')</if>
+			</if>
+			<if test="adress != null and adress != ''">
+				AND a.adress LIKE 
+					<if test="dbName == 'oracle'">'%'||#{adress}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{adress}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{adress},'%')</if>
+			</if>
+			<if test="longitude != null and longitude != ''">
+				AND a.longitude = #{longitude}
+			</if>
+			<if test="latitude != null and latitude != ''">
+				AND a.latitude = #{latitude}
+			</if>
+			<if test="startlevel != null and startlevel != ''">
+				AND a.startlevel = #{startlevel}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TOrg">
+		SELECT 
+			<include refid="tOrgColumns"/>
+		FROM t_org a
+		<include refid="tOrgJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_org(
+			id,
+			title,
+			tags,
+			adress,
+			longitude,
+			latitude,
+			imageurl,
+			startlevel
+		) VALUES (
+			#{id},
+			#{title},
+			#{tags},
+			#{adress},
+			#{longitude},
+			#{latitude},
+			#{imageurl},
+			#{startlevel}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_org SET 	
+			title = #{title},
+			tags = #{tags},
+			adress = #{adress},
+			longitude = #{longitude},
+			latitude = #{latitude},
+			imageurl = #{imageurl},
+			startlevel = #{startlevel}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM t_org
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

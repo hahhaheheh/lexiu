@@ -850,5 +850,7 @@ public class JedisUtils {
 	public static Object toObject(byte[] bytes){
 		return ObjectUtils.unserialize(bytes);
 	}
-
+	public static void main(String[] args) {
+		JedisUtils.set("1", "1", 0);
+	}
 }

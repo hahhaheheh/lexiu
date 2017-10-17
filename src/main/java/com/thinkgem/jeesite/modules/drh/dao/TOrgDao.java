@@ -5,14 +5,14 @@ package com.thinkgem.jeesite.modules.drh.dao;
 
 import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
-import com.thinkgem.jeesite.modules.drh.entity.TUser;
+import com.thinkgem.jeesite.modules.drh.entity.TOrg;
 
 /**
- * 用户信息DAO接口
+ * 机构信息DAO接口
  * @author hl
- * @version 2017-09-20
+ * @version 2017-10-17
  */
 @MyBatisDao
-public interface TUserDao extends CrudDao<TUser> {
-	public  TUser getByObj(TUser tUser);
+public interface TOrgDao extends CrudDao<TOrg> {
+	
 }
