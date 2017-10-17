@@ -34,11 +34,26 @@
 		WHERE a.id = #{id}
 	</select>
 	
+	<select id="get" resultType="TUser" parameterType="TUser">
+		SELECT 
+			<include refid="tUserColumns"/>
+		FROM t_user a
+		<include refid="tUserJoins"/>
+	</select>
+	
 	<select id="findList" resultType="TUser">
 		SELECT 
 			<include refid="tUserColumns"/>
 		FROM t_user a
 		<include refid="tUserJoins"/>
+		<where>
+			<if test="username != null and username != ''">
+				AND a.username = #{username}
+			</if>
+			<if test="password != null and password != ''">
+				AND a.password = #{password}
+			</if>
+		</where>
 		<where>
 			
 			<if test="sid != null and sid != ''">
