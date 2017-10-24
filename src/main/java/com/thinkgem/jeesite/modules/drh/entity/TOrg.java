@@ -10,21 +10,35 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
 /**
  * 机构信息Entity
  * @author hl
- * @version 2017-10-17
+ * @version 2017-10-24
  */
-public class TOrg extends DataEntity<TOrg> {
+public class TOrg extends DataEntity<TOrg> implements Comparable<TOrg> {
 	
 	private static final long serialVersionUID = 1L;
 	private String title;		// 名称
-	private String tags;		// tags
-	private String adress;		// adress
+	private String tags;		// 标签
+	private String province;		// 省
+	private String city;		// 市
+	private String distrinct;		// 区
+	private String street;		// 街道
+	private String streetnumber;		// 街道号
 	private String longitude;		// 经度
 	private String latitude;		// 纬度
 	private String imageurl;		// 封面图
 	private String startlevel;		// 星级
 	
+	private Double distance;// 距离米
+	
 	public TOrg() {
 		super();
+	}
+	
+	public Double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(Double distance) {
+		this.distance = distance;
 	}
 
 	public TOrg(String id){
@@ -40,7 +54,7 @@ public class TOrg extends DataEntity<TOrg> {
 		this.title = title;
 	}
 	
-	@Length(min=0, max=100, message="tags长度必须介于 0 和 100 之间")
+	@Length(min=0, max=100, message="标签长度必须介于 0 和 100 之间")
 	public String getTags() {
 		return tags;
 	}
@@ -49,13 +63,49 @@ public class TOrg extends DataEntity<TOrg> {
 		this.tags = tags;
 	}
 	
-	@Length(min=0, max=200, message="adress长度必须介于 0 和 200 之间")
-	public String getAdress() {
-		return adress;
+	@Length(min=0, max=100, message="省长度必须介于 0 和 100 之间")
+	public String getProvince() {
+		return province;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setProvince(String province) {
+		this.province = province;
+	}
+	
+	@Length(min=0, max=100, message="市长度必须介于 0 和 100 之间")
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	@Length(min=0, max=100, message="区长度必须介于 0 和 100 之间")
+	public String getDistrinct() {
+		return distrinct;
+	}
+
+	public void setDistrinct(String distrinct) {
+		this.distrinct = distrinct;
+	}
+	
+	@Length(min=0, max=100, message="街道长度必须介于 0 和 100 之间")
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	
+	@Length(min=0, max=200, message="街道号长度必须介于 0 和 200 之间")
+	public String getStreetnumber() {
+		return streetnumber;
+	}
+
+	public void setStreetnumber(String streetnumber) {
+		this.streetnumber = streetnumber;
 	}
 	
 	@Length(min=0, max=100, message="经度长度必须介于 0 和 100 之间")
@@ -92,6 +142,11 @@ public class TOrg extends DataEntity<TOrg> {
 
 	public void setStartlevel(String startlevel) {
 		this.startlevel = startlevel;
+	}
+
+	@Override
+	public int compareTo(TOrg org) {
+		return this.distance.compareTo(org.getDistance());
 	}
 	
 }

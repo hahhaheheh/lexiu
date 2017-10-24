@@ -6,7 +6,11 @@
 		a.id AS "id",
 		a.title AS "title",
 		a.tags AS "tags",
-		a.adress AS "adress",
+		a.province AS "province",
+		a.city AS "city",
+		a.distrinct AS "distrinct",
+		a.street AS "street",
+		a.streetnumber AS "streetnumber",
 		a.longitude AS "longitude",
 		a.latitude AS "latitude",
 		a.imageurl AS "imageurl",
@@ -43,17 +47,44 @@
 					<if test="dbName == 'mssql'">'%'+#{tags}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{tags},'%')</if>
 			</if>
-			<if test="adress != null and adress != ''">
-				AND a.adress LIKE 
-					<if test="dbName == 'oracle'">'%'||#{adress}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{adress}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{adress},'%')</if>
+			<if test="province != null and province != ''">
+				AND a.province LIKE 
+					<if test="dbName == 'oracle'">'%'||#{province}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{province}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{province},'%')</if>
+			</if>
+			<if test="city != null and city != ''">
+				AND a.city LIKE 
+					<if test="dbName == 'oracle'">'%'||#{city}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{city}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{city},'%')</if>
+			</if>
+			<if test="distrinct != null and distrinct != ''">
+				AND a.distrinct LIKE 
+					<if test="dbName == 'oracle'">'%'||#{distrinct}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{distrinct}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{distrinct},'%')</if>
+			</if>
+			<if test="street != null and street != ''">
+				AND a.street LIKE 
+					<if test="dbName == 'oracle'">'%'||#{street}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{street}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{street},'%')</if>
+			</if>
+			<if test="streetnumber != null and streetnumber != ''">
+				AND a.streetnumber LIKE 
+					<if test="dbName == 'oracle'">'%'||#{streetnumber}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{streetnumber}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{streetnumber},'%')</if>
 			</if>
 			<if test="longitude != null and longitude != ''">
 				AND a.longitude = #{longitude}
 			</if>
 			<if test="latitude != null and latitude != ''">
 				AND a.latitude = #{latitude}
+			</if>
+			<if test="imageurl != null and imageurl != ''">
+				AND a.imageurl = #{imageurl}
 			</if>
 			<if test="startlevel != null and startlevel != ''">
 				AND a.startlevel = #{startlevel}
@@ -90,7 +121,11 @@
 			id,
 			title,
 			tags,
-			adress,
+			province,
+			city,
+			distrinct,
+			street,
+			streetnumber,
 			longitude,
 			latitude,
 			imageurl,
@@ -99,7 +134,11 @@
 			#{id},
 			#{title},
 			#{tags},
-			#{adress},
+			#{province},
+			#{city},
+			#{distrinct},
+			#{street},
+			#{streetnumber},
 			#{longitude},
 			#{latitude},
 			#{imageurl},
@@ -111,7 +150,11 @@
 		UPDATE t_org SET 	
 			title = #{title},
 			tags = #{tags},
-			adress = #{adress},
+			province = #{province},
+			city = #{city},
+			distrinct = #{distrinct},
+			street = #{street},
+			streetnumber = #{streetnumber},
 			longitude = #{longitude},
 			latitude = #{latitude},
 			imageurl = #{imageurl},

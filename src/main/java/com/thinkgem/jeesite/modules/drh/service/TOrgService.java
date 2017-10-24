@@ -16,7 +16,7 @@ import com.thinkgem.jeesite.modules.drh.dao.TOrgDao;
 /**
  * 机构信息Service
  * @author hl
- * @version 2017-10-17
+ * @version 2017-10-24
  */
 @Service
 @Transactional(readOnly = true)

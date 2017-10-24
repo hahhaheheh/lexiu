@@ -19,7 +19,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/drh/tOrg/">机构信息列表</a></li>
-		<shiro:hasPermission name="drh:tOrg:edit"><li><a href="${ctx}/drh/tOrg/form">机构信息添加</a></li></shiro:hasPermission>
+		<li><a href="${ctx}/drh/tOrg/add">机构信息添加</a></li>
 	</ul>
 	<form:form id="searchForm" modelAttribute="tOrg" action="${ctx}/drh/tOrg/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
@@ -28,17 +28,32 @@
 			<li><label>名称：</label>
 				<form:input path="title" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
-			<li><label>tags：</label>
+			<li><label>标签：</label>
 				<form:input path="tags" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
-			<li><label>adress：</label>
-				<form:input path="adress" htmlEscape="false" maxlength="200" class="input-medium"/>
+			<li><label>省：</label>
+				<form:input path="province" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>市：</label>
+				<form:input path="city" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>区：</label>
+				<form:input path="distrinct" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>街道：</label>
+				<form:input path="street" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>街道号：</label>
+				<form:input path="streetnumber" htmlEscape="false" maxlength="200" class="input-medium"/>
 			</li>
 			<li><label>经度：</label>
 				<form:input path="longitude" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
 			<li><label>纬度：</label>
 				<form:input path="latitude" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>封面图：</label>
+				<form:input path="imageurl" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
 			<li><label>星级：</label>
 				<form:input path="startlevel" htmlEscape="false" maxlength="5" class="input-medium"/>
@@ -52,13 +67,16 @@
 		<thead>
 			<tr>
 				<th>名称</th>
-				<th>tags</th>
-				<th>adress</th>
+				<th>标签</th>
+				<th>省</th>
+				<th>市</th>
+				<th>区</th>
+				<th>街道</th>
+				<th>街道号</th>
 				<th>经度</th>
 				<th>纬度</th>
-				<th>封面图</th>
 				<th>星级</th>
-				<shiro:hasPermission name="drh:tOrg:edit"><th>操作</th></shiro:hasPermission>
+				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -71,7 +89,19 @@
 					${tOrg.tags}
 				</td>
 				<td>
-					${tOrg.adress}
+					${tOrg.province}
+				</td>
+				<td>
+					${tOrg.city}
+				</td>
+				<td>
+					${tOrg.distrinct}
+				</td>
+				<td>
+					${tOrg.street}
+				</td>
+				<td>
+					${tOrg.streetnumber}
 				</td>
 				<td>
 					${tOrg.longitude}
@@ -80,15 +110,12 @@
 					${tOrg.latitude}
 				</td>
 				<td>
-					${tOrg.imageurl}
-				</td>
-				<td>
 					${tOrg.startlevel}
 				</td>
-				<shiro:hasPermission name="drh:tOrg:edit"><td>
+				<td>
     				<a href="${ctx}/drh/tOrg/form?id=${tOrg.id}">修改</a>
 					<a href="${ctx}/drh/tOrg/delete?id=${tOrg.id}" onclick="return confirmx('确认要删除该机构信息吗？', this.href)">删除</a>
-				</td></shiro:hasPermission>
+				</td>
 			</tr>
 		</c:forEach>
 		</tbody>

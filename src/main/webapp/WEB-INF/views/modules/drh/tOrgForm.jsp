@@ -40,15 +40,39 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">tags：</label>
+			<label class="control-label">标签：</label>
 			<div class="controls">
 				<form:input path="tags" htmlEscape="false" maxlength="100" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">adress：</label>
+			<label class="control-label">省：</label>
 			<div class="controls">
-				<form:input path="adress" htmlEscape="false" maxlength="200" class="input-xlarge "/>
+				<form:input path="province" htmlEscape="false" maxlength="100" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">市：</label>
+			<div class="controls">
+				<form:input path="city" htmlEscape="false" maxlength="100" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">区：</label>
+			<div class="controls">
+				<form:input path="distrinct" htmlEscape="false" maxlength="100" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">街道：</label>
+			<div class="controls">
+				<form:input path="street" htmlEscape="false" maxlength="100" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">街道号：</label>
+			<div class="controls">
+				<form:input path="streetnumber" htmlEscape="false" maxlength="200" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -66,7 +90,8 @@
 		<div class="control-group">
 			<label class="control-label">封面图：</label>
 			<div class="controls">
-				<form:input path="imageurl" htmlEscape="false" maxlength="100" class="input-xlarge "/>
+				<form:hidden id="imageurl" path="imageurl" htmlEscape="false" maxlength="100" class="input-xlarge "/>
+				<sys:ckfinder input="imageurl" type="images" uploadPath="/orgphoto" selectMultiple="false" maxWidth="100" maxHeight="100"/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -76,7 +101,7 @@
 			</div>
 		</div>
 		<div class="form-actions">
-			<shiro:hasPermission name="drh:tOrg:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
+			<input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;
 			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
 		</div>
 	</form:form>

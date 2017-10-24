@@ -10,7 +10,7 @@ import com.thinkgem.jeesite.modules.drh.entity.TOrg;
 /**
  * 机构信息DAO接口
  * @author hl
- * @version 2017-10-17
+ * @version 2017-10-24
  */
 @MyBatisDao
 public interface TOrgDao extends CrudDao<TOrg> {

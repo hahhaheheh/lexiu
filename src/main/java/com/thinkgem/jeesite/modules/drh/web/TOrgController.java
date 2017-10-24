@@ -25,7 +25,7 @@ import com.thinkgem.jeesite.modules.drh.service.TOrgService;
 /**
  * 机构信息Controller
  * @author hl
- * @version 2017-10-17
+ * @version 2017-10-24
  */
 @Controller
 @RequestMapping(value = "${adminPath}/drh/tOrg")
@@ -49,17 +49,24 @@ public class TOrgController extends BaseController {
 	@RequestMapping(value = {"list", ""})
 	public String list(TOrg tOrg, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<TOrg> page = tOrgService.findPage(new Page<TOrg>(request, response), tOrg); 
-		model.addAttribute("tOrg", tOrg);
 		model.addAttribute("page", page);
+		model.addAttribute("tOrg", tOrg);
 		return "modules/drh/tOrgList";
 	}
 
+	//@RequiresPermissions("drh:tOrg:view")
 	@RequestMapping(value = "form")
 	public String form(TOrg tOrg, Model model) {
 		model.addAttribute("tOrg", tOrg);
 		return "modules/drh/tOrgForm";
 	}
+	@RequestMapping(value = "add")
+	public String add(TOrg tOrg, Model model) {
+		model.addAttribute("tOrg", tOrg);
+		return "modules/drh/org";
+	}
 
+	//@RequiresPermissions("drh:tOrg:edit")
 	@RequestMapping(value = "save")
 	public String save(TOrg tOrg, Model model, RedirectAttributes redirectAttributes) {
 		if (!beanValidator(model, tOrg)){
@@ -70,6 +77,7 @@ public class TOrgController extends BaseController {
 		return "redirect:"+Global.getAdminPath()+"/drh/tOrg/?repage";
 	}
 	
+	//@RequiresPermissions("drh:tOrg:edit")
 	@RequestMapping(value = "delete")
 	public String delete(TOrg tOrg, RedirectAttributes redirectAttributes) {
 		tOrgService.delete(tOrg);
