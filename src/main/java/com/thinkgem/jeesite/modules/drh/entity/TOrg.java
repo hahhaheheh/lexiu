@@ -10,7 +10,7 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
 /**
  * 机构信息Entity
  * @author hl
- * @version 2017-10-24
+ * @version 2017-10-25
  */
 public class TOrg extends DataEntity<TOrg> implements Comparable<TOrg> {
 	
@@ -26,23 +26,26 @@ public class TOrg extends DataEntity<TOrg> implements Comparable<TOrg> {
 	private String latitude;		// 纬度
 	private String imageurl;		// 封面图
 	private String startlevel;		// 星级
-	
-	private Double distance;// 距离米
+	private String phone;		// 联系方式
+	private String cityid;		// 城市id
+	private Double distance;//距离米
 	
 	public TOrg() {
 		super();
 	}
+
+	public TOrg(String id){
+		super(id);
+	}
+
 	
+
 	public Double getDistance() {
 		return distance;
 	}
 
 	public void setDistance(Double distance) {
 		this.distance = distance;
-	}
-
-	public TOrg(String id){
-		super(id);
 	}
 
 	@Length(min=0, max=100, message="名称长度必须介于 0 和 100 之间")
@@ -143,10 +146,26 @@ public class TOrg extends DataEntity<TOrg> implements Comparable<TOrg> {
 	public void setStartlevel(String startlevel) {
 		this.startlevel = startlevel;
 	}
+	
+	@Length(min=0, max=100, message="联系方式长度必须介于 0 和 100 之间")
+	public String getPhone() {
+		return phone;
+	}
 
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
+	@Length(min=0, max=100, message="城市id长度必须介于 0 和 100 之间")
+	public String getCityid() {
+		return cityid;
+	}
+
+	public void setCityid(String cityid) {
+		this.cityid = cityid;
+	}
 	@Override
 	public int compareTo(TOrg org) {
 		return this.distance.compareTo(org.getDistance());
 	}
-	
 }

@@ -14,7 +14,9 @@
 		a.longitude AS "longitude",
 		a.latitude AS "latitude",
 		a.imageurl AS "imageurl",
-		a.startlevel AS "startlevel"
+		a.startlevel AS "startlevel",
+		a.phone AS "phone",
+		a.cityid AS "cityid"
 	</sql>
 	
 	<sql id="tOrgJoins">
@@ -89,6 +91,15 @@
 			<if test="startlevel != null and startlevel != ''">
 				AND a.startlevel = #{startlevel}
 			</if>
+			<if test="phone != null and phone != ''">
+				AND a.phone LIKE 
+					<if test="dbName == 'oracle'">'%'||#{phone}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{phone}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{phone},'%')</if>
+			</if>
+			<if test="cityid != null and cityid != ''">
+				AND a.cityid = #{cityid}
+			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -129,7 +140,9 @@
 			longitude,
 			latitude,
 			imageurl,
-			startlevel
+			startlevel,
+			phone,
+			cityid
 		) VALUES (
 			#{id},
 			#{title},
@@ -142,7 +155,9 @@
 			#{longitude},
 			#{latitude},
 			#{imageurl},
-			#{startlevel}
+			#{startlevel},
+			#{phone},
+			#{cityid}
 		)
 	</insert>
 	
@@ -158,7 +173,9 @@
 			longitude = #{longitude},
 			latitude = #{latitude},
 			imageurl = #{imageurl},
-			startlevel = #{startlevel}
+			startlevel = #{startlevel},
+			phone = #{phone},
+			cityid = #{cityid}
 		WHERE id = #{id}
 	</update>
 	

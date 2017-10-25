@@ -54,7 +54,10 @@
 		<div class="control-group">
 			<label class="control-label">市：</label>
 			<div class="controls">
-				<form:input path="city" htmlEscape="false" maxlength="100" class="input-xlarge "/>
+				<form:hidden path="city" id="city" htmlEscape="false" maxlength="100" class="input-large "/>
+						<form:select path="cityid" class="input-large ">  
+				             <form:options items="${cityList}" itemLabel="city" itemValue="id"/>  
+				         </form:select>  
 			</div>
 		</div>
 		<div class="control-group">
@@ -90,14 +93,28 @@
 		<div class="control-group">
 			<label class="control-label">封面图：</label>
 			<div class="controls">
-				<form:hidden id="imageurl" path="imageurl" htmlEscape="false" maxlength="100" class="input-xlarge "/>
+				<form:hidden id="imageurl" path="imageurl" htmlEscape="false" maxlength="100" class="input-large "/>
 				<sys:ckfinder input="imageurl" type="images" uploadPath="/orgphoto" selectMultiple="false" maxWidth="100" maxHeight="100"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">星级：</label>
 			<div class="controls">
-				<form:input path="startlevel" htmlEscape="false" maxlength="5" class="input-xlarge "/>
+				<form:select path="startlevel" class="input-large ">  
+				             <form:options items="${fns:getDictList('startlevel')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				         </form:select> 
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">联系方式：</label>
+			<div class="controls">
+				<form:input path="phone" htmlEscape="false" maxlength="100" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">城市id：</label>
+			<div class="controls">
+				<form:input path="cityid" htmlEscape="false" maxlength="100" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="form-actions">

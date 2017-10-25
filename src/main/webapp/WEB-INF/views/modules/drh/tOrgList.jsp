@@ -58,6 +58,12 @@
 			<li><label>星级：</label>
 				<form:input path="startlevel" htmlEscape="false" maxlength="5" class="input-medium"/>
 			</li>
+			<li><label>联系方式：</label>
+				<form:input path="phone" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>城市id：</label>
+				<form:input path="cityid" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
 		</ul>
@@ -76,6 +82,8 @@
 				<th>经度</th>
 				<th>纬度</th>
 				<th>星级</th>
+				<th>联系方式</th>
+				<th>城市id</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -111,6 +119,12 @@
 				</td>
 				<td>
 					${tOrg.startlevel}
+				</td>
+				<td>
+					${tOrg.phone}
+				</td>
+				<td>
+					${tOrg.cityid}
 				</td>
 				<td>
     				<a href="${ctx}/drh/tOrg/form?id=${tOrg.id}">修改</a>

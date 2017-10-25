@@ -3,6 +3,8 @@
  */
 package com.thinkgem.jeesite.modules.drh.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,7 +21,9 @@ import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.modules.drh.entity.City;
 import com.thinkgem.jeesite.modules.drh.entity.TOrg;
+import com.thinkgem.jeesite.modules.drh.service.CityService;
 import com.thinkgem.jeesite.modules.drh.service.TOrgService;
 
 /**
@@ -33,7 +37,8 @@ public class TOrgController extends BaseController {
 
 	@Autowired
 	private TOrgService tOrgService;
-	
+	@Autowired
+	private CityService cityService;
 	@ModelAttribute
 	public TOrg get(@RequestParam(required=false) String id) {
 		TOrg entity = null;
@@ -57,11 +62,17 @@ public class TOrgController extends BaseController {
 	//@RequiresPermissions("drh:tOrg:view")
 	@RequestMapping(value = "form")
 	public String form(TOrg tOrg, Model model) {
+		City c=new City();
+		List<City> cityList=cityService.findList(c);
+		model.addAttribute("cityList",cityList);
 		model.addAttribute("tOrg", tOrg);
 		return "modules/drh/tOrgForm";
 	}
 	@RequestMapping(value = "add")
 	public String add(TOrg tOrg, Model model) {
+		City c=new City();
+		List<City> cityList=cityService.findList(c);
+		model.addAttribute("cityList",cityList);
 		model.addAttribute("tOrg", tOrg);
 		return "modules/drh/org";
 	}
