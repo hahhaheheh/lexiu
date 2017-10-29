@@ -16,6 +16,7 @@
 		a.imageurl AS "imageurl",
 		a.startlevel AS "startlevel",
 		a.phone AS "phone",
+		a.description as "description",
 		a.cityid AS "cityid"
 	</sql>
 	
@@ -142,6 +143,7 @@
 			imageurl,
 			startlevel,
 			phone,
+			description,
 			cityid
 		) VALUES (
 			#{id},
@@ -157,6 +159,7 @@
 			#{imageurl},
 			#{startlevel},
 			#{phone},
+			#{description},
 			#{cityid}
 		)
 	</insert>
@@ -175,6 +178,7 @@
 			imageurl = #{imageurl},
 			startlevel = #{startlevel},
 			phone = #{phone},
+			description=#{description},
 			cityid = #{cityid}
 		WHERE id = #{id}
 	</update>
