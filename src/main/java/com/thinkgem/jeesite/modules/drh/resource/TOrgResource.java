@@ -23,8 +23,9 @@ public class TOrgResource {
 	private TOrgService tOrgService;
 	 @RequestMapping("/around/list")
 	 @ResponseBody
-	 public ResultModel aroundOrg( String lng,String lat){
+	 public ResultModel aroundOrg(String cityId, String lng,String lat){
 		 TOrg tOrg=new TOrg();
+		 tOrg.setCityid(cityId);
 		 List<TOrg> orgList=tOrgService.findList(tOrg);
 		 //计算距离
 		 for (TOrg temp : orgList) {

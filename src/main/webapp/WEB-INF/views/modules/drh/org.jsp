@@ -20,7 +20,6 @@
 		.table-item-sub th,.table-item th,.table-item-abreast th,.table-item-sub td,.table-item td,.table-item-abreast td{padding:4px 5px 4px 5px;border-top:solid 0 #d4d5d7;border-left:solid 1px #d4d5d7;border-right:solid 1px #d4d5d7;border-bottom:solid 1px #d4d5d7}
 		.table-item-sub th,.table-item th,.table-item-abreast th{text-align:right;background-color:#eaebf0;background-image:none;color:#2e363f;height:30px}
 		.table-item-sub td,.table-item td,.table-item-abreast td{text-align:left;height:30px}
-		.table-item-sub td input[type="text"],.table-item td input[type="text"],.table-item-abreast td input[type="text"],.table-item-sub td input[type="password"],.table-item td input[type="password"],.table-item-abreast td input[type="password"]{height:20px}
 
 		.table-item-abreast .table-item-list{width:100%;padding:0;border-bottom:solid 1px #b9c6d6;background-color:#fff;border-collapse:collapse}
 		.table-item-abreast .table-item-list th,.table-item-abreast .table-item-list td{border:1px solid #a1a1a1;padding:0 2px 0 2px;text-align:center}
@@ -67,12 +66,11 @@ z-index:10000;
 </head>
 <body>
 	<div id="allmap"></div>
-  <p>
   <form:form id="inputForm" modelAttribute="tOrg" action="${ctx}/drh/tOrg/save" method="post" class="form-horizontal">
   <form:hidden path="id"/>
   <table class="table-item">
  			<tr>
-                <th>
+                <th >
                     <label class="control-label">名称：</label>
                 </th>
                 <td>
@@ -140,7 +138,7 @@ z-index:10000;
                 </th>                                      
                  <td>
 					<div class="controls">
-						<form:input path="startlevel" htmlEscape="false" maxlength="5" class="input-large "/>
+						<form:input path="streetnumber" id="streetnumber" htmlEscape="false" maxlength="100" class="input-large "/>
 					</div>
                 </td>    
                  <th>
@@ -177,84 +175,27 @@ z-index:10000;
                  <td>
 					<div class="controls">
 						<form:hidden id="imageurl" path="imageurl" htmlEscape="false" maxlength="100" class="input-large "/>
-				<sys:ckfinder input="imageurl" type="images" uploadPath="/orgphoto" selectMultiple="false" maxWidth="100" maxHeight="100"/>
+				<sys:ckfinder input="imageurl" type="images" uploadPath="/orgphoto" selectMultiple="true" maxWidth="100" maxHeight="100"/>
 					</div>
                 </td>        
             </tr>
-		<%-- <div class="control-group">
-			<label class="control-label">名称：</label>
-			<div class="controls">
-				<form:input path="title" htmlEscape="false" maxlength="100" class="input-xlarge "/>
-			</div>
-		</div> --%>
-		<%-- <div class="control-group">
-			<label class="control-label">标签：</label>
-			<div class="controls">
-				<form:input path="tags" htmlEscape="false" maxlength="100" class="input-xlarge "/>
-			</div>
-		</div> --%>
-		<%-- <div class="control-group">
-			<label class="control-label">省：</label>
-			<div class="controls">
-				<form:input path="province" id="province" htmlEscape="false" maxlength="100" class="input-xlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">市：</label>
-			<div class="controls">
-				<form:input path="city" id="city" htmlEscape="false" maxlength="100" class="input-xlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">区：</label>
-			<div class="controls">
-				<form:input path="distrinct" id="distrinct" htmlEscape="false" maxlength="100" class="input-xlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">街道：</label>
-			<div class="controls">
-				<form:input path="street" id="street" htmlEscape="false" maxlength="100" class="input-xlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">街道号：</label>
-			<div class="controls">
-				<form:input path="streetnumber" id="streetnumber" htmlEscape="false" maxlength="200" class="input-xlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">经度：</label>
-			<div class="controls">
-				<form:input path="longitude" id="longitude" htmlEscape="false" maxlength="100" class="input-xlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">纬度：</label>
-			<div class="controls">
-				<form:input path="latitude" id="latitude" htmlEscape="false" maxlength="100" class="input-xlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">封面图：</label>
-			<div class="controls">
-				<form:hidden id="imageurl" path="imageurl" htmlEscape="false" maxlength="100" class="input-xlarge "/>
-				<sys:ckfinder input="imageurl" type="images" uploadPath="/orgphoto" selectMultiple="false" maxWidth="100" maxHeight="100"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">星级：</label>
-			<div class="controls">
-				<form:input path="startlevel" htmlEscape="false" maxlength="5" class="input-xlarge "/>
-			</div>
-		</div> --%>
+		<tr>
+			<th>
+                  <label class="control-label">机构描述:</label>
+             </th>
+              <td colspan="5">
+			   <div class="controls">
+			    <form:textarea id="description" htmlEscape="true" path="description" rows="4" maxlength="200" class="input-large"/>
+				<sys:ckeditor replace="description" uploadPath="/org/description" />
+				</div>
+				</td>
+		</tr>
 		</table>
 		<div style="text-align: center;" >
 			<input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;
 			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
 		</div>
 		</form:form>
-  </p>
 </body>
 </html>
 <script type="text/javascript">

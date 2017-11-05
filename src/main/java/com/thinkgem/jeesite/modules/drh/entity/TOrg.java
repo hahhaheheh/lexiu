@@ -30,6 +30,8 @@ public class TOrg extends DataEntity<TOrg> implements Comparable<TOrg> {
 	private String cityid;		// 城市id
 	private Double distance;//距离米
 	
+	private String description;//机构描述
+	
 	public TOrg() {
 		super();
 	}
@@ -39,6 +41,14 @@ public class TOrg extends DataEntity<TOrg> implements Comparable<TOrg> {
 	}
 
 	
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public Double getDistance() {
 		return distance;
@@ -129,7 +139,6 @@ public class TOrg extends DataEntity<TOrg> implements Comparable<TOrg> {
 		this.latitude = latitude;
 	}
 	
-	@Length(min=0, max=100, message="封面图长度必须介于 0 和 100 之间")
 	public String getImageurl() {
 		return imageurl;
 	}
