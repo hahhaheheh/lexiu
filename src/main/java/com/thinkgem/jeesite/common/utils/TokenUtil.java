@@ -14,9 +14,11 @@ public class TokenUtil {
     private static Double EXPIREDAT = -1D;
 
     public static void initTokenByProp() {
-        String url = "http://a1.easemob.com/${ORG_NAME}/${APP_NAME}/token";
-        url.replace("${ORG_NAME}",Global.getConfig("orgName"))
-           .replace("${APP_NAME}",Global.getConfig("appName"));
+        String url = "http://a1.easemob.com/ushowdev@163.com/ushow/token";
+
+//        String url = "http://a1.easemob.com/${ORG_NAME}/${APP_NAME}/token";
+//        url=url.replace("${ORG_NAME}",Global.getConfig("orgName"))
+//           .replace("${APP_NAME}",Global.getConfig("appName"));
         Map body = new HashMap<String,String>();
         body.put("grant_type","client_credentials");
         body.put("client_id",Global.getConfig("clientId"));

@@ -15,11 +15,12 @@ import java.util.Map;
 @Service("imService")
 public class IMUserService {
 
-    private String url ="http://a1.easemob.com/${ORG_NAME}/${APP_NAME}/users";
+//    private String url ="http://a1.easemob.com/${ORG_NAME}/${APP_NAME}/users";
+    private String url ="http://a1.easemob.com/ushowdev@163.com/ushow/users";
 
     public String regToIM(String username,String password){
-        url.replace("${ORG_NAME}", Global.getConfig("orgName"))
-           .replace("${APP_NAME}",Global.getConfig("appName"));
+//        url.replace("${ORG_NAME}", Global.getConfig("orgName"))
+//           .replace("${APP_NAME}",Global.getConfig("appName"));
         Map body = new HashMap<String,String>();
         body.put("username",username);
         body.put("password",password);
