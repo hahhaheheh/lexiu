@@ -16,7 +16,7 @@ import java.util.Map;
 public class IMUserService {
 
 //    private String url ="http://a1.easemob.com/${ORG_NAME}/${APP_NAME}/users";
-    private String url ="http://a1.easemob.com/ushowdev@163.com/ushow/users";
+    private String url ="http://a1.easemob.com/1109170925178943/ushow/users";
 
     public String regToIM(String username,String password){
 //        url.replace("${ORG_NAME}", Global.getConfig("orgName"))

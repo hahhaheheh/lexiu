@@ -62,13 +62,13 @@ public class TUserResource {
                 user = new TUser();
                 user.setUsername(mobile);
                 user.setPassword(password);
-                userService.save(user);
-                return new ResultModel(0,"success",new LinkedHashMap());
-//                if(imUserService.regToIM(mobile,password)!=null){
-//                    userService.save(user);
-//                    return new ResultModel(0,"success",new LinkedHashMap());
-//                }
-//                return new ResultModel(1,"环信注册异常",new LinkedHashMap());
+//                userService.save(user);
+//                return new ResultModel(0,"success",new LinkedHashMap());
+                if(imUserService.regToIM(mobile,password)!=null){
+                    userService.save(user);
+                    return new ResultModel(0,"success",new LinkedHashMap());
+                }
+                return new ResultModel(1,"环信注册异常",new LinkedHashMap());
             }else {
                 return new ResultModel(1,"用户名已存在",new LinkedHashMap());
             }
