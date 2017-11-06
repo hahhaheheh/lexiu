@@ -11,12 +11,14 @@ import java.util.Map;
  */
 public class TokenUtil {
     private static String ACCESS_TOKEN;
-    private static Double EXPIREDAT = -1D;
+    private static Long EXPIREDAT = -1L;
 
     public static void initTokenByProp() {
-        String url = "http://a1.easemob.com/${ORG_NAME}/${APP_NAME}/token";
-        url.replace("${ORG_NAME}",Global.getConfig("orgName"))
-           .replace("${APP_NAME}",Global.getConfig("appName"));
+        String url = "http://a1.easemob.com/1109170925178943/ushow/token";
+
+//        String url = "http://a1.easemob.com/${ORG_NAME}/${APP_NAME}/token";
+//        url=url.replace("${ORG_NAME}",Global.getConfig("orgName"))
+//           .replace("${APP_NAME}",Global.getConfig("appName"));
         Map body = new HashMap<String,String>();
         body.put("grant_type","client_credentials");
         body.put("client_id",Global.getConfig("clientId"));
@@ -24,7 +26,7 @@ public class TokenUtil {
         String resp =  HttpReqUtils.postReq(url,body,null);
         JSONObject jsonObject =JSONObject.parseObject(resp);
         ACCESS_TOKEN = " Bearer " + jsonObject.get("access_token");
-        EXPIREDAT = System.currentTimeMillis() + (Double) jsonObject.get("expires_in");
+        EXPIREDAT = System.currentTimeMillis() + (Integer) jsonObject.get("expires_in");
     }
 
     public static String getAccessToken() {

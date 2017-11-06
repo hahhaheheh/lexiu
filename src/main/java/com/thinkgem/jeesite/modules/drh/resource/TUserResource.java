@@ -62,6 +62,8 @@ public class TUserResource {
                 user = new TUser();
                 user.setUsername(mobile);
                 user.setPassword(password);
+//                userService.save(user);
+//                return new ResultModel(0,"success",new LinkedHashMap());
                 if(imUserService.regToIM(mobile,password)!=null){
                     userService.save(user);
                     return new ResultModel(0,"success",new LinkedHashMap());
