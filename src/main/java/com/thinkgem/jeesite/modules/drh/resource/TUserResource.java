@@ -172,6 +172,23 @@ public class TUserResource {
             return new ResultModel(1,"系统错误",new LinkedHashMap());
         }
     }
+
+    /**
+     * 用户退出
+     * @param token
+     * @return
+     */
+    @RequestMapping("/logout")
+    @ResponseBody
+    public ResultModel logout(String token){
+        TUser user = (TUser) JedisUtils.getObject(token);
+        if (user==null){
+            return new ResultModel(1000,"用户未登录",null);
+        }else {
+            JedisUtils.del(token);
+            return new ResultModel(0,"success",new LinkedHashMap());
+        }
+    }
     /**
      * 重置登录密码
      * @param request
@@ -213,6 +230,27 @@ public class TUserResource {
             return new ResultModel(1000,"用户未登录",null);
         }
         return new ResultModel(0,"success",new LinkedHashMap()).put("user",user);
+    }
+
+    /**
+     * 修改用户基本信息
+     * @param token
+     * @param user
+     * @return
+     */
+    @RequestMapping("/info/update")
+    @ResponseBody
+    public ResultModel updateUserInfo(String token,TUser user){
+        TUser tuser = (TUser) JedisUtils.getObject(token);
+        if (tuser==null){
+            return new ResultModel(1000,"用户未登录",null);
+        }else {
+            user.setId(tuser.getId());
+            user.setUsername(tuser.getUsername());
+            user.setUmoney(tuser.getUmoney());
+            userService.save(user);
+            return new ResultModel(0,"success",null);
+        }
     }
 
 }
