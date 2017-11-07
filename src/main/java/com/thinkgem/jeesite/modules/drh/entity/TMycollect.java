@@ -45,15 +45,6 @@ public class TMycollect extends DataEntity<TMycollect> {
 		this.peripheryids = peripheryids;
 	}
 	
-	@Length(min=0, max=64, message="杂志信息长度必须介于 0 和 64 之间")
-	public String getMagazineids() {
-		return magazineids;
-	}
-
-	public void setMagazineids(String magazineids) {
-		this.magazineids = magazineids;
-	}
-	
 	@Length(min=0, max=10, message="1已收藏0 取消收藏长度必须介于 0 和 10 之间")
 	public String getStatus() {
 		return status;
