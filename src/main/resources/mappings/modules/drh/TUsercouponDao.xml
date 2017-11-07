@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.drh.dao.TUsercouponDao">
+    
+	<sql id="tUsercouponColumns">
+		a.id AS "id",
+		a.userid AS "userid",
+		a.couponid AS "couponid"
+	</sql>
+	
+	<sql id="tUsercouponJoins">
+	</sql>
+    
+	<select id="get" resultType="TUsercoupon">
+		SELECT 
+			<include refid="tUsercouponColumns"/>
+		FROM t_usercoupon a
+		<include refid="tUsercouponJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TUsercoupon">
+		SELECT 
+			<include refid="tUsercouponColumns"/>
+		FROM t_usercoupon a
+		<include refid="tUsercouponJoins"/>
+		<where>
+			
+			<if test="userid != null and userid != ''">
+				AND a.userid = #{userid}
+			</if>
+			<if test="couponid != null and couponid != ''">
+				AND a.couponid = #{couponid}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TUsercoupon">
+		SELECT 
+			<include refid="tUsercouponColumns"/>
+		FROM t_usercoupon a
+		<include refid="tUsercouponJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_usercoupon(
+			id,
+			userid,
+			couponid
+		) VALUES (
+			#{id},
+			#{userid},
+			#{couponid}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_usercoupon SET 	
+			userid = #{userid},
+			couponid = #{couponid}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM t_usercoupon
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

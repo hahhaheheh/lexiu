@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.drh.dao.TCouponDao">
+    
+	<sql id="tCouponColumns">
+		a.id AS "id",
+		a.type AS "type",
+		a.name AS "name",
+		a.orgname AS "orgname",
+		a.startdate AS "startdate",
+		a.enddate AS "enddate",
+		a.facevalue AS "facevalue",
+		a.status AS "status"
+	</sql>
+	
+	<sql id="tCouponJoins">
+	</sql>
+    
+	<select id="get" resultType="TCoupon">
+		SELECT 
+			<include refid="tCouponColumns"/>
+		FROM t_coupon a
+		<include refid="tCouponJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TCoupon">
+		SELECT 
+			<include refid="tCouponColumns"/>
+		FROM t_coupon a
+		<include refid="tCouponJoins"/>
+		<where>
+			
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="orgname != null and orgname != ''">
+				AND a.orgname = #{orgname}
+			</if>
+			<if test="startdate != null and startdate != ''">
+				AND a.startdate = #{startdate}
+			</if>
+			<if test="enddate != null and enddate != ''">
+				AND a.enddate = #{enddate}
+			</if>
+			<if test="facevalue != null and facevalue != ''">
+				AND a.facevalue = #{facevalue}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TCoupon">
+		SELECT 
+			<include refid="tCouponColumns"/>
+		FROM t_coupon a
+		<include refid="tCouponJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_coupon(
+			id,
+			type,
+			name,
+			orgname,
+			startdate,
+			enddate,
+			facevalue,
+			status
+		) VALUES (
+			#{id},
+			#{type},
+			#{name},
+			#{orgname},
+			#{startdate},
+			#{enddate},
+			#{facevalue},
+			#{status}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_coupon SET 	
+			type = #{type},
+			name = #{name},
+			orgname = #{orgname},
+			startdate = #{startdate},
+			enddate = #{enddate},
+			facevalue = #{facevalue},
+			status = #{status}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM t_coupon
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
