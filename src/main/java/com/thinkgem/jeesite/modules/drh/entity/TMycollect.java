@@ -9,7 +9,7 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
 
 /**
  * 收藏信息Entity
- * @author hl
+ * @author hl 
  * @version 2017-09-20
  */
 public class TMycollect extends DataEntity<TMycollect> {
@@ -17,8 +17,7 @@ public class TMycollect extends DataEntity<TMycollect> {
 	private static final long serialVersionUID = 1L;
 	private String userid;		// userid
 	private String peripheryids;		// 周边信息
-	private String magazineids;		// 杂志信息
-	private String status;		// 1已收藏0 取消收藏
+	private String status;		// 1代表杂志0 代表周边
 	
 	public TMycollect() {
 		super();
