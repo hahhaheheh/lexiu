@@ -57,13 +57,8 @@ public class PersonalCenterResource {
 	        	TMyattentionorfans tMyattentionorfans=new TMyattentionorfans();
 	        	tMyattentionorfans.setAttentionid(user.getId());
 	        	List<TMyattentionorfans> tMyattentionorfansList=tMyattentionorfansService.findList(tMyattentionorfans);
-	        	int i=0;
-	        	for (TMyattentionorfans tMyattentionorfansTemp : tMyattentionorfansList) {
-	        		i++;
-	        		TUser t=tUserService.get(tMyattentionorfansTemp.getFansid());
-	        		rm.put("user"+i, t);
-				}
-	        	return rm;
+	        	
+	        	return rm.put("fansList", tMyattentionorfansList);
 	        }
 	 }
 	 /**
@@ -98,13 +93,7 @@ public class PersonalCenterResource {
 	        	TMyattentionorfans tMyattentionorfans=new TMyattentionorfans();
 	        	tMyattentionorfans.setFansid(user.getId());
 	        	List<TMyattentionorfans> tMyattentionorfansList=tMyattentionorfansService.findList(tMyattentionorfans);
-	        	int i=0;
-	        	for (TMyattentionorfans tMyattentionorfansTemp : tMyattentionorfansList) {
-	        		i++;
-	        		TUser t=tUserService.get(tMyattentionorfansTemp.getAttentionid());
-	        		rm.put("user"+i, t);
-				}
-	        	return rm;
+	        	return rm.put("attentionList", tMyattentionorfansList);
 	        }
 	 }
 	 /**
