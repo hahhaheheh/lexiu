@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thinkgem.jeesite.common.config.Global;
+import com.thinkgem.jeesite.common.utils.JedisUtils;
 import com.thinkgem.jeesite.modules.drh.ResultModel;
 import com.thinkgem.jeesite.modules.drh.entity.TMyattentionorfans;
 import com.thinkgem.jeesite.modules.drh.entity.TMycollect;
@@ -83,22 +84,33 @@ public class TOrgResource {
 	 @RequestMapping("/around/collection")
 	 @ResponseBody
 		public ResultModel collection(TMycollect tMycollect, Model model, RedirectAttributes redirectAttributes) {
-			tMycollectService.save(tMycollect);
+		 tMycollect.setStatus("0");
+		 tMycollectService.save(tMycollect);
 			ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
 			return rm;
 		}
 	 @RequestMapping("/around/canclecollection")
 	 @ResponseBody
 		public ResultModel canclecollection(TMycollect tMycollect, Model model, RedirectAttributes redirectAttributes) {
-			tMycollectService.delete(tMycollect);;
+		 tMycollect.setStatus("0");	
+		 tMycollectService.delete(tMycollect);;
 			ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
 			return rm;
 		}
-	 @RequestMapping("/around/collectionlist")
+	 @RequestMapping("/around/aroundlist")
 	 @ResponseBody
-		public ResultModel collectionList(TMycollect tMycollect, Model model, RedirectAttributes redirectAttributes) {
-			List<TMycollect> tMycollectList=tMycollectService.findList(tMycollect);
-			ResultModel rm=new ResultModel(0,"success",new LinkedHashMap()).put("collectionlist", tMycollectList);
-			return rm;
+		public ResultModel collectionList(String token, Model model, RedirectAttributes redirectAttributes) {
+		 TUser user = (TUser) JedisUtils.getObject(token);
+	        if (user==null){
+	            return new ResultModel(1000,"用户未登录",null);
+	        }else {
+	        	 TMycollect tMycollect=new TMycollect();
+	        	 tMycollect.setStatus("0");
+	        	 tMycollect.setUserid(user.getId());
+	    		 List<TMycollect> tMycollectList=tMycollectService.findList(tMycollect);
+	    			ResultModel rm=new ResultModel(0,"success",new LinkedHashMap()).put("collectionlist", tMycollectList);
+	    			return rm;
+	        }
+		
 		}
 }

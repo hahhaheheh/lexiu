@@ -6,7 +6,6 @@
 		a.id AS "id",
 		a.userid AS "userid",
 		a.peripheryids AS "peripheryids",
-		a.magazineids AS "magazineids",
 		a.status AS "status"
 	</sql>
 	
@@ -33,9 +32,6 @@
 			</if>
 			<if test="peripheryids != null and peripheryids != ''">
 				AND a.peripheryids = #{peripheryids}
-			</if>
-			<if test="magazineids != null and magazineids != ''">
-				AND a.magazineids = #{magazineids}
 			</if>
 			<if test="status != null and status != ''">
 				AND a.status = #{status}
@@ -72,13 +68,11 @@
 			id,
 			userid,
 			peripheryids,
-			magazineids,
 			status
 		) VALUES (
 			#{id},
 			#{userid},
 			#{peripheryids},
-			#{magazineids},
 			#{status}
 		)
 	</insert>
@@ -87,7 +81,6 @@
 		UPDATE t_mycollect SET 	
 			userid = #{userid},
 			peripheryids = #{peripheryids},
-			magazineids = #{magazineids},
 			status = #{status}
 		WHERE id = #{id}
 	</update>
