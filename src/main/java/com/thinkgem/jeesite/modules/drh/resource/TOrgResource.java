@@ -41,61 +41,91 @@ public class TOrgResource {
 	private TMycollectService tMycollectService;
 	 @RequestMapping("/around/list")
 	 @ResponseBody
-	 public ResultModel aroundOrg(TOrg tOrg){
-		 ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
-		 List<TOrg> orgList=tOrgService.findList(tOrg);
-		 //计算距离
-		 for (TOrg temp : orgList) {
-			temp.setDistance(LocationUtil.getDistance(Double.parseDouble(tOrg.getLatitude()), Double.parseDouble(tOrg.getLongitude()), Double.parseDouble(temp.getLatitude()), Double.parseDouble(temp.getLongitude())));
-		}
-		 //排序
-		 Collections.sort(orgList);
-     	return rm.put("orgList",orgList);
+	 public ResultModel aroundOrg(String token,TOrg tOrg){
+		 TUser user = (TUser) JedisUtils.getObject(token);
+	        if (user==null){
+	            return new ResultModel(1000,"用户未登录",null);
+	        }else {
+	        	 ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
+	    		 List<TOrg> orgList=tOrgService.findList(tOrg);
+	    		 //计算距离
+	    		 for (TOrg temp : orgList) {
+	    			temp.setDistance(LocationUtil.getDistance(Double.parseDouble(tOrg.getLatitude()), Double.parseDouble(tOrg.getLongitude()), Double.parseDouble(temp.getLatitude()), Double.parseDouble(temp.getLongitude())));
+	    		}
+	    		 //排序
+	    		 Collections.sort(orgList);
+	         	return rm.put("orgList",orgList);
+	        }
+		
 	 }
 	 @RequestMapping("/comment/save")
 	 @ResponseBody
-	 public ResultModel save(TOrgComment tOrgComment,HttpServletRequest request,HttpServletResponse response){
-		 List<MultipartFile> multipartFiles = UploadHelper.getFileSet(request, 1024 * 20, null);
-		 String path = "D:" + File.separator+"commentImage";
-		 String filePath ="";
-		 for (MultipartFile multipartFile : multipartFiles) {
-			 try {
-				 filePath=UploadHelper.uploadFile(multipartFile, path)+",";
-				 System.out.println(filePath);
-			 } catch (Exception e) {
-			e.printStackTrace();
-			 }
-			 }
-		 tOrgComment.setImageurl(path);
-		 tOrgCommentService.save(tOrgComment);
-		 ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
-     	return rm;
+	 public ResultModel save(String token,TOrgComment tOrgComment,HttpServletRequest request,HttpServletResponse response){
+		 TUser user = (TUser) JedisUtils.getObject(token);
+	        if (user==null){
+	            return new ResultModel(1000,"用户未登录",null);
+	        }else {
+	        	 List<MultipartFile> multipartFiles = UploadHelper.getFileSet(request, 1024 * 20, null);
+	    		 String path = "D:" + File.separator+"commentImage";
+	    		 String filePath ="";
+	    		 for (MultipartFile multipartFile : multipartFiles) {
+	    			 try {
+	    				 filePath=UploadHelper.uploadFile(multipartFile, path)+",";
+	    				 System.out.println(filePath);
+	    			 } catch (Exception e) {
+	    			e.printStackTrace();
+	    			 }
+	    			 }
+	    		 tOrgComment.setImageurl(path);
+	    		 tOrgComment.setUserid(user.getId());
+	    		 tOrgCommentService.save(tOrgComment);
+	    		 ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
+	         	return rm;
+	        }
+		
 	 }
 	 @RequestMapping("/comment/list")
 	 @ResponseBody
-	 public ResultModel list(String orgid,HttpServletRequest request,HttpServletResponse response){
-		 TOrgComment tOrgComment=new TOrgComment();
-		 ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
-		 tOrgComment.setOrgid(orgid);
-		List<TOrgComment> commentList= tOrgCommentService.findList(tOrgComment);
-		
-     	return rm.put("commentList", commentList);
+	 public ResultModel list(String token,String orgid,HttpServletRequest request,HttpServletResponse response){
+		 TUser user = (TUser) JedisUtils.getObject(token);
+	        if (user==null){
+	            return new ResultModel(1000,"用户未登录",null);
+	        }else {
+	        	TOrgComment tOrgComment=new TOrgComment();
+		   		 ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
+		   		 tOrgComment.setOrgid(orgid);
+		   		List<TOrgComment> commentList= tOrgCommentService.findList(tOrgComment);
+	        	return rm.put("commentList", commentList);
+	        }
+		 
 	 }
 	 @RequestMapping("/around/collection")
 	 @ResponseBody
-		public ResultModel collection(TMycollect tMycollect, Model model, RedirectAttributes redirectAttributes) {
-		 tMycollect.setStatus("0");
-		 tMycollectService.save(tMycollect);
-			ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
-			return rm;
+		public ResultModel collection(String token,TMycollect tMycollect, Model model, RedirectAttributes redirectAttributes) {
+		 TUser user = (TUser) JedisUtils.getObject(token);
+	        if (user==null){
+	            return new ResultModel(1000,"用户未登录",null);
+	        }else {
+	        	tMycollect.setStatus("0");
+	   		 tMycollectService.save(tMycollect);
+	   			ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
+	   			return rm;
+	        }
+		 
 		}
 	 @RequestMapping("/around/canclecollection")
 	 @ResponseBody
-		public ResultModel canclecollection(TMycollect tMycollect, Model model, RedirectAttributes redirectAttributes) {
-		 tMycollect.setStatus("0");	
-		 tMycollectService.delete(tMycollect);;
-			ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
-			return rm;
+		public ResultModel canclecollection(String token,TMycollect tMycollect, Model model, RedirectAttributes redirectAttributes) {
+		 TUser user = (TUser) JedisUtils.getObject(token);
+	        if (user==null){
+	            return new ResultModel(1000,"用户未登录",null);
+	        }else {
+	        	tMycollect.setStatus("0");	
+	   		 tMycollectService.delete(tMycollect);;
+	   			ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
+	   			return rm;
+	        }
+		 
 		}
 	 @RequestMapping("/around/aroundlist")
 	 @ResponseBody
