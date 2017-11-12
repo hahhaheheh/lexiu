@@ -34,6 +34,8 @@ public class TUser extends DataEntity<TUser> {
 	private String bankcard;		// bankcard
 	private String source;//用户来源
 	private String openId;
+	private int praise;//点赞数
+	private int showStatus;//主播开播状态 1开播 0未开播
 	
 	public TUser() {
 		super();
@@ -209,5 +211,21 @@ public class TUser extends DataEntity<TUser> {
 
 	public void setOpenId(String openId) {
 		this.openId = openId;
+	}
+
+	public int getPraise() {
+		return praise;
+	}
+
+	public void setPraise(int praise) {
+		this.praise = praise;
+	}
+
+	public int getShowStatus() {
+		return showStatus;
+	}
+
+	public void setShowStatus(int showStatus) {
+		this.showStatus = showStatus;
 	}
 }

@@ -213,5 +213,24 @@
 		DELETE FROM t_user
 		WHERE id = #{id}
 	</update>
+
+	<select id="findShowUsers" resultType="TUser">
+		SELECT
+		<include refid="tUserColumns"/>
+		FROM t_user a
+		<include refid="tUserJoins"/>
+		<where>
+				AND a.sid is not NULL
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+
+
 	
 </mapper>

@@ -24,6 +24,7 @@ import com.thinkgem.jeesite.modules.drh.dao.TUserDao;
 public class TUserService extends CrudService<TUserDao, TUser> {
 	@Autowired
 	private TUserDao tUserDao;
+
 	public TUser get(String id) {
 		return super.get(id);
 	}
@@ -45,8 +46,13 @@ public class TUserService extends CrudService<TUserDao, TUser> {
 	public void delete(TUser tUser) {
 		super.delete(tUser);
 	}
+
 	public  TUser getByObj(TUser tUser){
 		return tUserDao.getByObj(tUser);
+	}
+
+	public List<TUser> findShowUsers(TUser tUser){
+		return tUserDao.findShowUsers(tUser);
 	}
 	
 }

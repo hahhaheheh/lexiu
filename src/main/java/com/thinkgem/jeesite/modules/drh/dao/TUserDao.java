@@ -7,6 +7,8 @@ import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
 import com.thinkgem.jeesite.modules.drh.entity.TUser;
 
+import java.util.List;
+
 /**
  * 用户信息DAO接口
  * @author hl
@@ -15,4 +17,6 @@ import com.thinkgem.jeesite.modules.drh.entity.TUser;
 @MyBatisDao
 public interface TUserDao extends CrudDao<TUser> {
 	public  TUser getByObj(TUser tUser);
+
+	public List<TUser> findShowUsers(TUser tUser);
 }

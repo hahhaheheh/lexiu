@@ -3,6 +3,7 @@
  */
 package com.thinkgem.jeesite.modules.drh.service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ import com.thinkgem.jeesite.modules.drh.dao.TSignlnrecordDao;
 @Service
 @Transactional(readOnly = true)
 public class TSignlnrecordService extends CrudService<TSignlnrecordDao, TSignlnrecord> {
+
+	private TSignlnrecordDao tSignlnrecordDao;
 
 	public TSignlnrecord get(String id) {
 		return super.get(id);
@@ -43,5 +46,14 @@ public class TSignlnrecordService extends CrudService<TSignlnrecordDao, TSignlnr
 	public void delete(TSignlnrecord tSignlnrecord) {
 		super.delete(tSignlnrecord);
 	}
-	
+
+	public TSignlnrecord findUserRecord(TSignlnrecord entity){
+		Iterator<TSignlnrecord> iterator = tSignlnrecordDao.findUserRecord(entity).iterator();
+		if (iterator.hasNext()){
+			return iterator.next();
+		}else {
+			return null;
+		}
+	}
+
 }

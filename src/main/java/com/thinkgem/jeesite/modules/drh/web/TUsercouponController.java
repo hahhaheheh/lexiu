@@ -20,7 +20,7 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.drh.entity.TUsercoupon;
-import com.thinkgem.jeesite.modules.drh.service.TUsercouponService;
+import com.thinkgem.jeesite.modules.drh.service.TUserCouponService;
 
 /**
  * usercouponController
@@ -32,7 +32,7 @@ import com.thinkgem.jeesite.modules.drh.service.TUsercouponService;
 public class TUsercouponController extends BaseController {
 
 	@Autowired
-	private TUsercouponService tUsercouponService;
+	private TUserCouponService tUsercouponService;
 	
 	@ModelAttribute
 	public TUsercoupon get(@RequestParam(required=false) String id) {

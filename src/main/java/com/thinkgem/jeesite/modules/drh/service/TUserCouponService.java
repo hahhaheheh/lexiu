@@ -5,13 +5,13 @@ package com.thinkgem.jeesite.modules.drh.service;
 
 import java.util.List;
 
+import com.thinkgem.jeesite.modules.drh.dao.TUserCouponDao;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
 import com.thinkgem.jeesite.modules.drh.entity.TUsercoupon;
-import com.thinkgem.jeesite.modules.drh.dao.TUsercouponDao;
 
 /**
  * usercouponService
@@ -20,7 +20,7 @@ import com.thinkgem.jeesite.modules.drh.dao.TUsercouponDao;
  */
 @Service
 @Transactional(readOnly = true)
-public class TUsercouponService extends CrudService<TUsercouponDao, TUsercoupon> {
+public class TUserCouponService extends CrudService<TUserCouponDao, TUsercoupon> {
 
 	public TUsercoupon get(String id) {
 		return super.get(id);

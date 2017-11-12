@@ -56,7 +56,7 @@ public class TOrgResource {
 	    		 Collections.sort(orgList);
 	         	return rm.put("orgList",orgList);
 	        }
-		
+
 	 }
 	 @RequestMapping("/comment/save")
 	 @ResponseBody
@@ -82,7 +82,7 @@ public class TOrgResource {
 	    		 ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
 	         	return rm;
 	        }
-		
+
 	 }
 	 @RequestMapping("/comment/list")
 	 @ResponseBody
@@ -97,7 +97,7 @@ public class TOrgResource {
 		   		List<TOrgComment> commentList= tOrgCommentService.findList(tOrgComment);
 	        	return rm.put("commentList", commentList);
 	        }
-		 
+
 	 }
 	 @RequestMapping("/around/collection")
 	 @ResponseBody
@@ -111,7 +111,7 @@ public class TOrgResource {
 	   			ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
 	   			return rm;
 	        }
-		 
+
 		}
 	 @RequestMapping("/around/canclecollection")
 	 @ResponseBody
@@ -120,12 +120,12 @@ public class TOrgResource {
 	        if (user==null){
 	            return new ResultModel(1000,"用户未登录",null);
 	        }else {
-	        	tMycollect.setStatus("0");	
+	        	tMycollect.setStatus("0");
 	   		 tMycollectService.delete(tMycollect);;
 	   			ResultModel rm=new ResultModel(0,"success",new LinkedHashMap());
 	   			return rm;
 	        }
-		 
+
 		}
 	 @RequestMapping("/around/aroundlist")
 	 @ResponseBody
@@ -141,6 +141,6 @@ public class TOrgResource {
 	    			ResultModel rm=new ResultModel(0,"success",new LinkedHashMap()).put("collectionlist", tMycollectList);
 	    			return rm;
 	        }
-		
+
 		}
 }
