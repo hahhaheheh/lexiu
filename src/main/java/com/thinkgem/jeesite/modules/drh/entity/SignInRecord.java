@@ -17,29 +17,12 @@ public class SignInRecord extends DataEntity<SignInRecord> {
 
     private Date signDate;
 
-    private Date beginSignDate;
 
-    private Date endSignDate;
+    private Date beginDate;
 
-    private Date beginSignDate;
+    private Date endDate;
 
-    private Date endSignDate;
 
-    public Date getBeginSignDate() {
-        return beginSignDate;
-    }
-
-    public void setBeginSignDate(Date beginSignDate) {
-        this.beginSignDate = beginSignDate;
-    }
-
-    public Date getEndSignDate() {
-        return endSignDate;
-    }
-
-    public void setEndSignDate(Date endSignDate) {
-        this.endSignDate = endSignDate;
-    }
 
     public SignInRecord() {
     }
@@ -64,5 +47,21 @@ public class SignInRecord extends DataEntity<SignInRecord> {
 
     public void setSignDate(Date signDate) {
         this.signDate = signDate;
+    }
+
+    public Date getBeginDate() {
+        return beginDate;
+    }
+
+    public void setBeginDate(Date beginDate) {
+        this.beginDate = beginDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

@@ -3,6 +3,7 @@
  */
 package com.thinkgem.jeesite.modules.drh.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import com.thinkgem.jeesite.common.persistence.DataEntity;
@@ -64,6 +65,7 @@ public class TUser extends DataEntity<TUser> {
 	}
 	
 	@Length(min=1, max=100, message="password长度必须介于 1 和 100 之间")
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}

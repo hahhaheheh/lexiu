@@ -80,20 +80,20 @@ z-index:10000;
                 </td>
                   <th>
                     <label class="control-label">标签：</label>
-                </th>                                      
+                </th>
                  <td>
 					<div class="controls">
 						<form:input path="tags" htmlEscape="false" maxlength="100" class="input-large "/>
 					</div>
-                </td>    
+                </td>
                  <th>
                     <label class="control-label">联系方式：</label>
-                </th>                                      
+                </th>
                  <td>
 					<div class="controls">
 						<form:input path="phone" htmlEscape="false" maxlength="100" class="input-large "/>
 					</div>
-                </td>        
+                </td>
             </tr>
             <tr>
                 <th>
