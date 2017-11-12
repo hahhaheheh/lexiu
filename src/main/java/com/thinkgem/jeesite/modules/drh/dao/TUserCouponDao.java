@@ -13,6 +13,6 @@ import com.thinkgem.jeesite.modules.drh.entity.TUsercoupon;
  * @version 2017-11-07
  */
 @MyBatisDao
-public interface TUsercouponDao extends CrudDao<TUsercoupon> {
+public interface TUserCouponDao extends CrudDao<TUsercoupon> {
 	
 }

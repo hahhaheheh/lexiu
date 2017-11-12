@@ -1,15 +1,14 @@
 package com.thinkgem.jeesite.modules.drh.resource;
 
 import com.thinkgem.jeesite.common.utils.CodeUtil;
+import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.common.utils.JedisUtils;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.drh.ResultModel;
 import com.thinkgem.jeesite.modules.drh.entity.TSession;
+import com.thinkgem.jeesite.modules.drh.entity.TSignlnrecord;
 import com.thinkgem.jeesite.modules.drh.entity.TUser;
-import com.thinkgem.jeesite.modules.drh.service.IMUserService;
-import com.thinkgem.jeesite.modules.drh.service.SMSService;
-import com.thinkgem.jeesite.modules.drh.service.TSessionService;
-import com.thinkgem.jeesite.modules.drh.service.TUserService;
+import com.thinkgem.jeesite.modules.drh.service.*;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +25,7 @@ import redis.clients.jedis.Jedis;
 import javax.servlet.http.HttpServletRequest;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 /**
@@ -47,6 +47,8 @@ public class TUserResource {
     @Autowired
     private IMUserService imUserService;
 
+    @Autowired
+    private TSignlnrecordService tSignlnrecordService;
     /**
      * 用户注册
      * @return
@@ -57,14 +59,14 @@ public class TUserResource {
         TUser user = new TUser();
         user.setUsername(mobile);
         try{
-            user = userService.get(user);
+            user = userService.getByObj(user);
             if(user==null){
                 user = new TUser();
                 user.setUsername(mobile);
                 user.setPassword(password);
 //                userService.save(user);
 //                return new ResultModel(0,"success",new LinkedHashMap());
-                if(imUserService.regToIM(mobile,password)!=null){
+                if(imUserService.regToIM(mobile,mobile)!=null){
                     userService.save(user);
                     return new ResultModel(0,"success",new LinkedHashMap());
                 }
@@ -166,7 +168,8 @@ public class TUserResource {
 //                sessionService.save(sessionEntity);
                 String token = System.currentTimeMillis()+user.getId().toString();
                 JedisUtils.setObject(token,user,0);
-                return new ResultModel(0,"success",new LinkedHashMap()).put("token",token);
+                return new ResultModel(0,"success",new LinkedHashMap())
+                        .put("token",token).put("user",user);
             }
         }catch (Exception e){
             return new ResultModel(1,"系统错误",new LinkedHashMap());
@@ -245,12 +248,98 @@ public class TUserResource {
         if (tuser==null){
             return new ResultModel(1000,"用户未登录",null);
         }else {
-            user.setId(tuser.getId());
-            user.setUsername(tuser.getUsername());
-            user.setUmoney(tuser.getUmoney());
-            userService.save(user);
+//            user.setId(tuser.getId());
+//            user.setUsername(tuser.getUsername());
+//            user.setUmoney(tuser.getUmoney());
+            tuser.setUseravatar(user.getUseravatar());
+            tuser.setSignature(user.getSignature());
+            tuser.setSex(user.getSex());
+            tuser.setNickname(user.getNickname());
+            userService.save(tuser);
+            JedisUtils.setObject(token,tuser,0);
             return new ResultModel(0,"success",null);
         }
     }
+
+    /**
+     * 签到
+     * @param token
+     * @return
+     */
+    @RequestMapping("/sign")
+    @ResponseBody
+    public ResultModel signRecord(String token){
+        TUser tuser = (TUser) JedisUtils.getObject(token);
+        if (tuser==null){
+            return new ResultModel(1000,"用户未登录",null);
+        }else {
+            Date date = new Date();
+            TSignlnrecord tSignlnrecord = new TSignlnrecord();
+            tSignlnrecord.setUserid(tuser.getId());
+            tSignlnrecord.setSigndate(date);
+            tSignlnrecord.setBeginDate(DateUtils.parseDate(DateUtils.formatDate(date)));
+            tSignlnrecord.setEndDate(DateUtils.parseDate(DateUtils.formatDate(DateUtils.addDays(date,1))));
+            TSignlnrecord tSignlnrecord1 = tSignlnrecordService.findUserRecord(tSignlnrecord);
+            if (tSignlnrecord1!=null){
+                return new ResultModel(2000,"本日已签过",null);
+            }else {
+                tSignlnrecordService.save(tSignlnrecord);
+                return new ResultModel(0,"success",null);
+            }
+        }
+    }
+
+    /**
+     * 是否签到
+     * @param token
+     * @return
+     */
+    @RequestMapping("/sign/record")
+    @ResponseBody
+    public ResultModel hasSignRecord(String token){
+        TUser tuser = (TUser) JedisUtils.getObject(token);
+        if (tuser==null){
+            return new ResultModel(1000,"用户未登录",null);
+        }else {
+            Date date = new Date();
+            TSignlnrecord tSignlnrecord = new TSignlnrecord();
+            tSignlnrecord.setUserid(tuser.getId());
+            tSignlnrecord.setSigndate(date);
+            tSignlnrecord.setBeginDate(DateUtils.parseDate(DateUtils.formatDate(date)));
+            tSignlnrecord.setEndDate(DateUtils.parseDate(DateUtils.formatDate(DateUtils.addDays(date,1))));
+            TSignlnrecord tSignlnrecord1 = tSignlnrecordService.findUserRecord(tSignlnrecord);
+            if (tSignlnrecord1!=null){
+                return new ResultModel(0,"本日已签过",new LinkedHashMap()).put("hasSigned",true);
+            }else {
+                return new ResultModel(0,"本日未签",new LinkedHashMap()).put("hasSigned",false);
+            }
+        }
+    }
+
+    @RequestMapping("/third/login")
+    @ResponseBody
+    public ResultModel thirdLogin(String source ,String openId){
+        TUser tUser =  new TUser();
+        tUser.setSource(source);
+        tUser.setOpenId(openId);
+        Iterator<TUser> iterator = userService.findList(tUser).iterator();
+        if (iterator.hasNext()){
+            tUser=iterator.next();
+            JedisUtils.setObject(openId,tUser,0);
+            return new ResultModel(0,"success",new LinkedHashMap())
+                    .put("token",openId).put("user",tUser);
+        }else {
+            if(imUserService.regToIM(openId,openId)!=null){
+                userService.save(tUser);
+                tUser=userService.findList(tUser).get(0);
+                JedisUtils.setObject(openId,tUser,0);
+                return new ResultModel(0,"success",new LinkedHashMap())
+                        .put("token",openId).put("user",tUser);
+            }
+            return new ResultModel(1000,"注册异常",null);
+        }
+    }
+
+
 
 }

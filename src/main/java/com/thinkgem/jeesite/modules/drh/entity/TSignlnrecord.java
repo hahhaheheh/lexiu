@@ -20,7 +20,9 @@ public class TSignlnrecord extends DataEntity<TSignlnrecord> {
 	private static final long serialVersionUID = 1L;
 	private String userid;		// userid
 	private Date signdate;		// signdate
-	
+	private Date beginDate;
+	private Date endDate;
+
 	public TSignlnrecord() {
 		super();
 	}
@@ -47,5 +49,20 @@ public class TSignlnrecord extends DataEntity<TSignlnrecord> {
 	public void setSigndate(Date signdate) {
 		this.signdate = signdate;
 	}
-	
+
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 }
