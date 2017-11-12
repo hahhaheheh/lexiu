@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.drh.dao.TMagazineDao">
+    
+	<sql id="tMagazineColumns">
+		a.id AS "id",
+		a.imageurl AS "imageurl",
+		a.title AS "title",
+		a.content AS "content",
+		a.updatedate AS "updatedate"
+	</sql>
+	
+	<sql id="tMagazineJoins">
+	</sql>
+    
+	<select id="get" resultType="TMagazine">
+		SELECT 
+			<include refid="tMagazineColumns"/>
+		FROM t_magazine a
+		<include refid="tMagazineJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="TMagazine">
+		SELECT 
+			<include refid="tMagazineColumns"/>
+		FROM t_magazine a
+		<include refid="tMagazineJoins"/>
+		<where>
+			
+			<if test="imageurl != null and imageurl != ''">
+				AND a.imageurl = #{imageurl}
+			</if>
+			<if test="title != null and title != ''">
+				AND a.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+			<if test="content != null and content != ''">
+				AND a.content = #{content}
+			</if>
+			<if test="updatedate != null and updatedate != ''">
+				AND a.updatedate = #{updatedate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TMagazine">
+		SELECT 
+			<include refid="tMagazineColumns"/>
+		FROM t_magazine a
+		<include refid="tMagazineJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_magazine(
+			id,
+			imageurl,
+			title,
+			content,
+			updatedate
+		) VALUES (
+			#{id},
+			#{imageurl},
+			#{title},
+			#{content},
+			#{updatedate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_magazine SET 	
+			imageurl = #{imageurl},
+			title = #{title},
+			content = #{content},
+			updatedate = #{updatedate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM t_magazine
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
