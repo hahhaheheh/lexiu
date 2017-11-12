@@ -5,14 +5,14 @@ package com.thinkgem.jeesite.modules.drh.dao;
 
 import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
-import com.thinkgem.jeesite.modules.drh.entity.TUsercoupon;
+import com.thinkgem.jeesite.modules.drh.entity.TSignlnrecord;
 
 /**
- * usercouponDAO接口
- * @author hl
+ * 签到表DAO接口
+ * @author 签到表
  * @version 2017-11-07
  */
 @MyBatisDao
-public interface TUsercouponDao extends CrudDao<TUsercoupon> {
+public interface TSignlnrecordDao extends CrudDao<TSignlnrecord> {
 	
 }
