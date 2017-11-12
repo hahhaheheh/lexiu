@@ -4,25 +4,28 @@
 package com.thinkgem.jeesite.modules.drh.entity;
 
 import org.hibernate.validator.constraints.Length;
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.validation.constraints.NotNull;
 
 import com.thinkgem.jeesite.common.persistence.DataEntity;
 
 /**
- * usercouponEntity
- * @author hl
+ * 签到表Entity
+ * @author 签到表
  * @version 2017-11-07
  */
-public class TUsercoupon extends DataEntity<TUsercoupon> {
+public class TSignlnrecord extends DataEntity<TSignlnrecord> {
 	
 	private static final long serialVersionUID = 1L;
 	private String userid;		// userid
-	private String couponid;		// couponid
+	private Date signdate;		// signdate
 	
-	public TUsercoupon() {
+	public TSignlnrecord() {
 		super();
 	}
 
-	public TUsercoupon(String id){
+	public TSignlnrecord(String id){
 		super(id);
 	}
 
@@ -35,13 +38,14 @@ public class TUsercoupon extends DataEntity<TUsercoupon> {
 		this.userid = userid;
 	}
 	
-	@Length(min=0, max=64, message="couponid长度必须介于 0 和 64 之间")
-	public String getCouponid() {
-		return couponid;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@NotNull(message="signdate不能为空")
+	public Date getSigndate() {
+		return signdate;
 	}
 
-	public void setCouponid(String couponid) {
-		this.couponid = couponid;
+	public void setSigndate(Date signdate) {
+		this.signdate = signdate;
 	}
 	
 }

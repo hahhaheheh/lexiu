@@ -20,6 +20,8 @@
 		a.interest AS "interest",
 		a.umoney AS "umoney",
 		a.idcard AS "idcard",
+		a.source AS "source",
+		a.openid AS "openId",
 		a.bankcard AS "bankcard"
 	</sql>
 	
@@ -156,7 +158,9 @@
 			interest,
 			umoney,
 			idcard,
-			bankcard
+			bankcard,
+			source,
+			openId
 		) VALUES (
 			#{id},
 			#{sid},
@@ -175,7 +179,9 @@
 			#{interest},
 			#{umoney},
 			#{idcard},
-			#{bankcard}
+			#{bankcard},
+			#{source},
+			#{openId}
 		)
 	</insert>
 	
@@ -197,6 +203,8 @@
 			interest = #{interest},
 			umoney = #{umoney},
 			idcard = #{idcard},
+			source = #{source},
+			openId = #{openId},
 			bankcard = #{bankcard}
 		WHERE id = #{id}
 	</update>

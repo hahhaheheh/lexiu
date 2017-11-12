@@ -57,13 +57,8 @@ public class PersonalCenterResource {
 	        	TMyattentionorfans tMyattentionorfans=new TMyattentionorfans();
 	        	tMyattentionorfans.setAttentionid(user.getId());
 	        	List<TMyattentionorfans> tMyattentionorfansList=tMyattentionorfansService.findList(tMyattentionorfans);
-	        	int i=0;
-	        	for (TMyattentionorfans tMyattentionorfansTemp : tMyattentionorfansList) {
-	        		i++;
-	        		TUser t=tUserService.get(tMyattentionorfansTemp.getFansid());
-	        		rm.put("user"+i, t);
-				}
-	        	return rm;
+	        	
+	        	return rm.put("fansList", tMyattentionorfansList);
 	        }
 	 }
 	 /**
@@ -98,13 +93,7 @@ public class PersonalCenterResource {
 	        	TMyattentionorfans tMyattentionorfans=new TMyattentionorfans();
 	        	tMyattentionorfans.setFansid(user.getId());
 	        	List<TMyattentionorfans> tMyattentionorfansList=tMyattentionorfansService.findList(tMyattentionorfans);
-	        	int i=0;
-	        	for (TMyattentionorfans tMyattentionorfansTemp : tMyattentionorfansList) {
-	        		i++;
-	        		TUser t=tUserService.get(tMyattentionorfansTemp.getAttentionid());
-	        		rm.put("user"+i, t);
-				}
-	        	return rm;
+	        	return rm.put("attentionList", tMyattentionorfansList);
 	        }
 	 }
 	 /**
@@ -115,16 +104,22 @@ public class PersonalCenterResource {
 	  */
 	 @RequestMapping("/atteintion")
 	 @ResponseBody
-	 public ResultModel collectionCount(String attentionId,String fansId){
-		 if(StringUtils.isNoneEmpty(attentionId)&&StringUtils.isNoneEmpty(fansId)){
-			 TMyattentionorfans tMyattentionorfans=new TMyattentionorfans();
-			 tMyattentionorfans.setAttentionid(attentionId);
-			 tMyattentionorfans.setFansid(fansId);
-			 tMyattentionorfansService.save(tMyattentionorfans);
-			 return new ResultModel(0,"success",new LinkedHashMap());
-		 }else{
-			 return new ResultModel(1,"参数不正确",new LinkedHashMap());
-		 }
+	 public ResultModel collectionCount(String token,String attentionId,String fansId){
+		 TUser user = (TUser) JedisUtils.getObject(token);
+	        if (user==null){
+	            return new ResultModel(1000,"用户未登录",null);
+	        }else {
+	        	if(StringUtils.isNoneEmpty(attentionId)&&StringUtils.isNoneEmpty(fansId)){
+	   			 TMyattentionorfans tMyattentionorfans=new TMyattentionorfans();
+	   			 tMyattentionorfans.setAttentionid(attentionId);
+	   			 tMyattentionorfans.setFansid(fansId);
+	   			 tMyattentionorfansService.save(tMyattentionorfans);
+	   			 return new ResultModel(0,"success",new LinkedHashMap());
+	   		 }else{
+	   			 return new ResultModel(1,"参数不正确",new LinkedHashMap());
+	   		 }
+	        }
+		 
 		 
 	 }
 	 @RequestMapping("/collection/count")
