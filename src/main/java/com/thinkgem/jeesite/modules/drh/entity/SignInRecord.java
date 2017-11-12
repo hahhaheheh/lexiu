@@ -21,6 +21,22 @@ public class SignInRecord extends DataEntity<SignInRecord> {
 
     private Date endSignDate;
 
+    public Date getBeginSignDate() {
+        return beginSignDate;
+    }
+
+    public void setBeginSignDate(Date beginSignDate) {
+        this.beginSignDate = beginSignDate;
+    }
+
+    public Date getEndSignDate() {
+        return endSignDate;
+    }
+
+    public void setEndSignDate(Date endSignDate) {
+        this.endSignDate = endSignDate;
+    }
+
     public SignInRecord() {
     }
 
@@ -36,31 +52,13 @@ public class SignInRecord extends DataEntity<SignInRecord> {
         this.userId = userId;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @NotNull(message="signDate不能为空")
     public Date getSignDate() {
         return signDate;
     }
 
     public void setSignDate(Date signDate) {
         this.signDate = signDate;
-    }
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @NotNull(message="beginSignDate不能为空")
-    public Date getBeginSignDate() {
-        return beginSignDate;
-    }
-
-    public void setBeginSignDate(Date beginSignDate) {
-        this.beginSignDate = beginSignDate;
-    }
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @NotNull(message="endSignDate不能为空")
-    public Date getEndSignDate() {
-        return endSignDate;
-    }
-
-    public void setEndSignDate(Date endSignDate) {
-        this.endSignDate = endSignDate;
     }
 }

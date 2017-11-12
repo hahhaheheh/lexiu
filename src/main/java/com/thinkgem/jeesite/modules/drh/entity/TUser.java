@@ -26,12 +26,14 @@ public class TUser extends DataEntity<TUser> {
 	private String city;		// city
 	private String area;		// area
 	private String address;		// address
-	private String useravatar;		// useravatar
+	private String useravatar;		// useravatar头像
 	private String professional;		// professional
 	private String interest;		// interest
 	private Long umoney;		// umoney
 	private String idcard;		// idcard
 	private String bankcard;		// bankcard
+	private String source;//用户来源
+	private String openId;
 	
 	public TUser() {
 		super();
@@ -192,5 +194,20 @@ public class TUser extends DataEntity<TUser> {
 	public void setBankcard(String bankcard) {
 		this.bankcard = bankcard;
 	}
-	
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
 }
