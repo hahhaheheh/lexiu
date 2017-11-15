@@ -31,25 +31,11 @@
 			<li><label>name：</label>
 				<form:input path="name" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
-			<li><label>orgname：</label>
-				<form:input path="orgname" htmlEscape="false" maxlength="100" class="input-medium"/>
-			</li>
-			<li><label>startdate：</label>
-				<input name="startdate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${tCoupon.startdate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
-			</li>
-			<li><label>enddate：</label>
-				<input name="enddate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${tCoupon.enddate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
-			</li>
+
 			<li><label>facevalue：</label>
 				<form:input path="facevalue" htmlEscape="false" class="input-medium"/>
 			</li>
-			<li><label>status：</label>
-				<form:input path="status" htmlEscape="false" maxlength="10" class="input-medium"/>
-			</li>
+
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
 		</ul>
@@ -60,11 +46,7 @@
 			<tr>
 				<th>type</th>
 				<th>name</th>
-				<th>orgname</th>
-				<th>startdate</th>
-				<th>enddate</th>
 				<th>facevalue</th>
-				<th>status</th>
 				<shiro:hasPermission name="drh:tCoupon:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -77,21 +59,11 @@
 				<td>
 					${tCoupon.name}
 				</td>
-				<td>
-					${tCoupon.orgname}
-				</td>
-				<td>
-					<fmt:formatDate value="${tCoupon.startdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
-				</td>
-				<td>
-					<fmt:formatDate value="${tCoupon.enddate}" pattern="yyyy-MM-dd HH:mm:ss"/>
-				</td>
+
 				<td>
 					${tCoupon.facevalue}
 				</td>
-				<td>
-					${tCoupon.status}
-				</td>
+
 				<shiro:hasPermission name="drh:tCoupon:edit"><td>
     				<a href="${ctx}/drh/tCoupon/form?id=${tCoupon.id}">修改</a>
 					<a href="${ctx}/drh/tCoupon/delete?id=${tCoupon.id}" onclick="return confirmx('确认要删除该coupon吗？', this.href)">删除</a>

@@ -15,11 +15,13 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
 public class TLiveroom extends DataEntity<TLiveroom> {
 	
 	private static final long serialVersionUID = 1L;
-	private String title;		// title
-	private String type;		// type
-	private String isprivate;		// isprivate
-	private String baseurl;		// baseurl
-	private String userid;		// userid
+	private String title;		// title房间名
+	private String type;		// type直播类型
+	private String isprivate;		// isprivate 是否加密
+	private String roomkey; //加密key
+	private int status;//直播状态 1开播 0未开播
+	private String baseurl;		// baseurl房间url
+	private String userid;		// userid用户信息
 	private String username;		// username
 	
 	public TLiveroom() {
@@ -83,5 +85,20 @@ public class TLiveroom extends DataEntity<TLiveroom> {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
+	public String getRoomkey() {
+		return roomkey;
+	}
+
+	public void setRoomkey(String roomkey) {
+		this.roomkey = roomkey;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 }

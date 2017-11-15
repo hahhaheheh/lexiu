@@ -6,11 +6,7 @@
 		a.id AS "id",
 		a.type AS "type",
 		a.name AS "name",
-		a.orgname AS "orgname",
-		a.startdate AS "startdate",
-		a.enddate AS "enddate",
-		a.facevalue AS "facevalue",
-		a.status AS "status"
+		a.facevalue AS "facevalue"
 	</sql>
 	
 	<sql id="tCouponJoins">

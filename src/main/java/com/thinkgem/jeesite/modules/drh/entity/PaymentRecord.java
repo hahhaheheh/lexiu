@@ -18,6 +18,13 @@ public class PaymentRecord extends DataEntity<PaymentRecord> {
     private String opertion;
     private BigDecimal umoney;
 
+    public PaymentRecord(String id) {
+        super(id);
+    }
+
+    public PaymentRecord() {
+    }
+
     public String getUserId() {
         return userId;
     }
