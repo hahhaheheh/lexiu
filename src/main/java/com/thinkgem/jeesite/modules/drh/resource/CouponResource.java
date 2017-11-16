@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by Niexuyang on 2017/10/29.
@@ -66,8 +67,8 @@ public class CouponResource {
             endDate = DateUtils.parseDate(end);
         }
         TCouponOrg tCouponOrg = new TCouponOrg();
-        tCouponOrg.setCouponId(couponId);
-        tCouponOrg.setOrgId(tUser.getSid());
+        tCouponOrg.setCouponid(couponId);
+        tCouponOrg.setOrgid(tUser.getSid());
         tCouponOrg.setStartdate(startDate);
         tCouponOrg.setEnddate(endDate);
         tCouponOrgService.save(tCouponOrg);
@@ -89,17 +90,23 @@ public class CouponResource {
             return new ResultModel(1000,"用户尚未登录",null);
         }
         TCouponOrg tCouponOrg = tCouponOrgService.get(orgCouponId);
-        TCoupon tCoupon = tCouponService.get(tCouponOrg.getCouponId());
-        TOrg tOrg = tOrgService.get(tCouponOrg.getOrgId());
+        TCoupon tCoupon = tCouponService.get(tCouponOrg.getCouponid());
+        TOrg tOrg = tOrgService.get(tCouponOrg.getOrgid());
+        TUsercoupon tmp = new TUsercoupon();
+        List<TUsercoupon> tUsercouponList = tUserCouponService.findList(tmp);
         //查询用户是否已经领取过，领取过不可再领
+        if(tUsercouponList!=null&&tUsercouponList.size()>0){
+            return new ResultModel(2000,"不能重复领取",null);
+        }
         TUsercoupon tUsercoupon = new TUsercoupon();
         tUsercoupon.setCouponid(tCoupon.getId());
-        tUsercoupon.setEndDate(tCouponOrg.getEnddate());
-        tUsercoupon.setFaceValue(tCoupon.getFacevalue());
+        tUsercoupon.setEnddate(tCouponOrg.getEnddate());
+        tUsercoupon.setFacevalue(tCoupon.getFacevalue());
         tUsercoupon.setName(tCoupon.getName());
-        tUsercoupon.setOrgId(tCouponOrg.getOrgId());
-        tUsercoupon.setOrgName(tOrg.getTitle());
-        tUsercoupon.setStartDate(tCouponOrg.getStartdate());
+        tUsercoupon.setOrgid(tCouponOrg.getOrgid());
+        tUsercoupon.setOrgname(tOrg.getTitle());
+        tUsercoupon.setStartdate(tCouponOrg.getStartdate());
+        tUsercoupon.setCouponorgid(orgCouponId);
         tUsercoupon.setStatus(0);
 //        tUsercoupon.setType();
         tUsercoupon.setUserid(tUser.getId());

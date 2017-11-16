@@ -13,14 +13,14 @@ public class SignInRecord extends DataEntity<SignInRecord> {
 
     private static final long serialVersionUID = 1L;
 
-    private String userId;
+    private String userid;
 
-    private Date signDate;
+    private Date signdate;
 
 
-    private Date beginDate;
+    private Date begindate;
 
-    private Date endDate;
+    private Date enddate;
 
 
 
@@ -31,37 +31,38 @@ public class SignInRecord extends DataEntity<SignInRecord> {
         super(id);
     }
 
-    public String getUserId() {
-        return userId;
+
+    public String getUserid() {
+        return userid;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @NotNull(message="signDate不能为空")
-    public Date getSignDate() {
-        return signDate;
+    public Date getSigndate() {
+        return signdate;
     }
 
-    public void setSignDate(Date signDate) {
-        this.signDate = signDate;
+    public void setSigndate(Date signdate) {
+        this.signdate = signdate;
     }
 
-    public Date getBeginDate() {
-        return beginDate;
+    public Date getBegindate() {
+        return begindate;
     }
 
-    public void setBeginDate(Date beginDate) {
-        this.beginDate = beginDate;
+    public void setBegindate(Date begindate) {
+        this.begindate = begindate;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getEnddate() {
+        return enddate;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEnddate(Date enddate) {
+        this.enddate = enddate;
     }
 }

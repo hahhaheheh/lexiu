@@ -11,8 +11,8 @@ import java.util.Date;
 public class PaymentRecord extends DataEntity<PaymentRecord> {
 
     private static final long serialVersionUID = 1L;
-    private String userId;
-    private Date paymentDate;
+    private String userid;
+    private Date paymentdate;
     private BigDecimal rmb;
     private String status;
     private String opertion;
@@ -25,20 +25,20 @@ public class PaymentRecord extends DataEntity<PaymentRecord> {
     public PaymentRecord() {
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserid() {
+        return userid;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
-    public Date getPaymentDate() {
-        return paymentDate;
+    public Date getPaymentdate() {
+        return paymentdate;
     }
 
-    public void setPaymentDate(Date paymentDate) {
-        this.paymentDate = paymentDate;
+    public void setPaymentdate(Date paymentdate) {
+        this.paymentdate = paymentdate;
     }
 
     public BigDecimal getRmb() {

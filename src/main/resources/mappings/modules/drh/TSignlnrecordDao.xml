@@ -99,9 +99,6 @@
 			<if test="userid != null and userid != ''">
 				AND a.userid = #{userid}
 			</if>
-			<if test="signdate != null and signdate != ''">
-				AND a.signdate = #{signdate}
-			</if>
 			<if test="beginDate != null and beginDate != '' and endDate !=null and endDate !=''">
 				AND a.signdate BETWEEN #{beginDate} AND  #{endDate}
 			</if>

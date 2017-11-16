@@ -86,7 +86,7 @@ public class GiftResource {
             return new ResultModel(2000,"您当前不是还主播",null);
         }
         GiftRecord giftRecord = new GiftRecord();
-        giftRecord.setUserId(tUser.getId());
+        giftRecord.setUserid(tUser.getId());
         return new ResultModel(0,"success",new ListHashMap())
                 .put("myGifts",giftRecordService.findList(giftRecord));
     }

@@ -21,7 +21,7 @@
 		a.umoney AS "umoney",
 		a.idcard AS "idcard",
 		a.source AS "source",
-		a.openid AS "openId",
+		a.openid AS "openid",
 		a.bankcard AS "bankcard"
 	</sql>
 	
@@ -109,6 +109,12 @@
 			<if test="idcard != null and idcard != ''">
 				AND a.idcard = #{idcard}
 			</if>
+			<if test="source != null and source != ''">
+				AND a.source = #{source}
+			</if>
+			<if test="openid != null and openid != ''">
+				AND a.openid = #{openid}
+			</if>
 			<if test="bankcard != null and bankcard != ''">
 				AND a.bankcard = #{bankcard}
 			</if>
@@ -160,7 +166,7 @@
 			idcard,
 			bankcard,
 			source,
-			openId
+			openid
 		) VALUES (
 			#{id},
 			#{sid},
@@ -181,7 +187,7 @@
 			#{idcard},
 			#{bankcard},
 			#{source},
-			#{openId}
+			#{openid}
 		)
 	</insert>
 	
@@ -204,7 +210,7 @@
 			umoney = #{umoney},
 			idcard = #{idcard},
 			source = #{source},
-			openId = #{openId},
+			openid = #{openid},
 			bankcard = #{bankcard}
 		WHERE id = #{id}
 	</update>

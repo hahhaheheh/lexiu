@@ -321,7 +321,7 @@ public class TUserResource {
     public ResultModel thirdLogin(String source ,String openId){
         TUser tUser =  new TUser();
         tUser.setSource(source);
-        tUser.setOpenId(openId);
+        tUser.setOpenid(openId);
         Iterator<TUser> iterator = userService.findList(tUser).iterator();
         if (iterator.hasNext()){
             tUser=iterator.next();

@@ -42,7 +42,6 @@ public class GiftController extends BaseController {
         return entity;
     }
 
-    @RequiresPermissions("drh:gift:view")
     @RequestMapping(value = {"list", ""})
     public String list(Gift gift, HttpServletRequest request, HttpServletResponse response, Model model) {
         Page<Gift> page = giftService.findPage(new Page<Gift>(request, response), gift);
@@ -50,14 +49,12 @@ public class GiftController extends BaseController {
         return "modules/drh/giftList";
     }
 
-    @RequiresPermissions("drh:gift:view")
     @RequestMapping(value = "form")
     public String form(Gift gift, Model model) {
         model.addAttribute("gift", gift);
         return "modules/drh/giftForm";
     }
 
-    @RequiresPermissions("drh:gift:edit")
     @RequestMapping(value = "save")
     public String save(Gift gift, Model model, RedirectAttributes redirectAttributes) {
         if (!beanValidator(model, gift)){
@@ -68,7 +65,6 @@ public class GiftController extends BaseController {
         return "redirect:"+ Global.getAdminPath()+"/drh/gift/?repage";
     }
 
-    @RequiresPermissions("drh:gift:edit")
     @RequestMapping(value = "delete")
     public String delete(Gift gift, RedirectAttributes redirectAttributes) {
         giftService.delete(gift);

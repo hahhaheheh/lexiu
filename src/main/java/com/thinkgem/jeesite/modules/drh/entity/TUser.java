@@ -34,9 +34,9 @@ public class TUser extends DataEntity<TUser> {
 	private String idcard;		// idcard
 	private String bankcard;		// bankcard
 	private String source;//用户来源
-	private String openId;
+	private String openid;
 	private int praise;//点赞数
-	private String loginType;//登录方式:mobile third
+	private String logintype;//登录方式:mobile third
 
 
 	public TUser() {
@@ -208,13 +208,6 @@ public class TUser extends DataEntity<TUser> {
 		this.source = source;
 	}
 
-	public String getOpenId() {
-		return openId;
-	}
-
-	public void setOpenId(String openId) {
-		this.openId = openId;
-	}
 
 	public int getPraise() {
 		return praise;
@@ -224,11 +217,19 @@ public class TUser extends DataEntity<TUser> {
 		this.praise = praise;
 	}
 
-	public String getLoginType() {
-		return loginType;
+	public String getOpenid() {
+		return openid;
 	}
 
-	public void setLoginType(String loginType) {
-		this.loginType = loginType;
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+
+	public String getLogintype() {
+		return logintype;
+	}
+
+	public void setLogintype(String logintype) {
+		this.logintype = logintype;
 	}
 }

@@ -5,7 +5,16 @@
 	<sql id="tUsercouponColumns">
 		a.id AS "id",
 		a.userid AS "userid",
-		a.couponid AS "couponid"
+		a.couponid AS "couponid",
+		a.couponorgid AS "couponorgid",
+		a.name AS "name",
+		a.facevalue AS "facevalue",
+		a.orgid AS "orgid",
+		a.orgname AS "orgname",
+		a.startdate AS "startdate",
+		a.enddate AS "enddate",
+		a.type AS "type",
+		a.status AS "status"
 	</sql>
 	
 	<sql id="tUsercouponJoins">
@@ -31,6 +40,24 @@
 			</if>
 			<if test="couponid != null and couponid != ''">
 				AND a.couponid = #{couponid}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name = #{name}
+			</if>
+			<if test="orgid != null and orgid != ''">
+				AND a.orgid = #{orgid}
+			</if>
+			<if test="orgname != null and orgname != ''">
+				AND a.orgname = #{orgname}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="couponorgid != null and couponorgid != ''">
+				AND a.couponorgid = #{couponorgid}
 			</if>
 		</where>
 		<choose>
@@ -63,18 +90,45 @@
 		INSERT INTO t_usercoupon(
 			id,
 			userid,
-			couponid
+			couponid,
+			couponorgid,
+			name,
+		    facevalue,
+		    orgid,
+		    orgname,
+		    startdate,
+		    enddate,
+		    type,
+		    status
 		) VALUES (
 			#{id},
 			#{userid},
-			#{couponid}
+			#{couponid},
+			#{couponorgid},
+			#{name},
+		    #{facevalue},
+		    #{orgid},
+		    #{orgname},
+		    #{startdate},
+		    #{enddate},
+		    #{type},
+		    #{status}
 		)
 	</insert>
 	
 	<update id="update">
 		UPDATE t_usercoupon SET 	
 			userid = #{userid},
-			couponid = #{couponid}
+			couponid = #{couponid},
+			couponorgid = #{couponorgid},
+			name = #{name},
+			facevalue = #{facevalue},
+			orgid = #{orgid},
+			orgname = #{orgname},
+			startdate = #{startdate},
+			enddate = #{enddate},
+			type = #{type},
+			status = #{status},
 		WHERE id = #{id}
 	</update>
 	
@@ -82,5 +136,6 @@
 		DELETE FROM t_usercoupon
 		WHERE id = #{id}
 	</update>
-	
+
+
 </mapper>

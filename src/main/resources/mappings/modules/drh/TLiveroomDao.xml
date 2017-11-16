@@ -6,6 +6,8 @@
 		a.title AS "title",
 		a.type AS "type",
 		a.isprivate AS "isprivate",
+		a.roomkey AS "roomkey",
+		a.status AS "status",
 		a.baseurl AS "baseurl",
 		a.userid AS "userid",
 		a.username AS "username"
@@ -41,8 +43,17 @@
 			<if test="isprivate != null and isprivate != ''">
 				AND a.isprivate = #{isprivate}
 			</if>
+			<if test="roomkey != null and roomkey != ''">
+				AND a.roomkey = #{roomkey}
+			</if>
 			<if test="baseurl != null and baseurl != ''">
 				AND a.baseurl = #{baseurl}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="userid != null and userid != ''">
+				AND a.userid = #{userid}
 			</if>
 			<if test="username != null and username != ''">
 				AND a.username = #{username}
@@ -79,15 +90,19 @@
 			title,
 			type,
 			isprivate,
+			roomkey,
 			baseurl,
 			userid,
+			status,
 			username
 		) VALUES (
 			#{title},
 			#{type},
 			#{isprivate},
+			#{roomkey},
 			#{baseurl},
 			#{userid},
+			#{status},
 			#{username}
 		)
 	</insert>
@@ -97,8 +112,10 @@
 			title = #{title},
 			type = #{type},
 			isprivate = #{isprivate},
+			roomkey = #{roomkey},
 			baseurl = #{baseurl},
 			userid = #{userid},
+			status = #{status},
 			username = #{username}
 		WHERE id = #{id}
 	</update>

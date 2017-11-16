@@ -11,8 +11,8 @@ public class TCouponOrg extends DataEntity<TCouponOrg>{
 
     private static final long serialVersionUID = 1L;
 
-    private String couponId;
-    private String orgId;
+    private String couponid;
+    private String orgid;
     private Date startdate;		// startdate
     private Date enddate;		// enddate
 
@@ -23,23 +23,22 @@ public class TCouponOrg extends DataEntity<TCouponOrg>{
         super(id);
     }
 
-    public String getCouponId() {
-        return couponId;
+
+    public String getCouponid() {
+        return couponid;
     }
 
-    public void setCouponId(String couponId) {
-        this.couponId = couponId;
+    public void setCouponid(String couponid) {
+        this.couponid = couponid;
     }
 
-    public String getOrgId() {
-        return orgId;
+    public String getOrgid() {
+        return orgid;
     }
 
-    public void setOrgId(String orgId) {
-        this.orgId = orgId;
+    public void setOrgid(String orgid) {
+        this.orgid = orgid;
     }
-
-
 
     public Date getStartdate() {
         return startdate;

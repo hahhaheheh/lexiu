@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.drh.dao.DiftRecordDao">
+    
+	<sql id="giftRecordColumns">
+		a.id AS "id",
+		a.userid AS "userid",
+		a.senderid AS "senderid",
+		a.giftid AS "giftid"
+		a.date AS "date"
+	</sql>
+	
+	<sql id="giftRecordJoins">
+	</sql>
+    
+	<select id="get" resultType="GiftRecord">
+		SELECT 
+			<include refid="giftRecordColumns"/>
+		FROM t_giftrecord a
+		<include refid="giftRecordJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="GiftRecord">
+		SELECT 
+			<include refid="giftRecordColumns"/>
+		FROM t_giftrecord a
+		<include refid="giftRecordJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="userid != null and userid != ''">
+				AND a.userid = #{userid}
+			</if>
+			<if test="senderid != null and senderid != ''">
+				AND a.senderid = #{senderid}
+			</if>
+			<if test="giftid != null and giftid != ''">
+				AND a.giftid = #{giftid}
+			</if>
+
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="GiftRecord">
+		SELECT 
+			<include refid="giftRecordColumns"/>
+		FROM t_giftrecord a
+		<include refid="giftRecordJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_giftrecord(
+			id,
+			userid,
+			senderid,
+			giftid,
+			date
+		) VALUES (
+			#{id},
+			#{userid},
+			#{senderid},
+			#{giftid},
+			#{date}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_giftrecord SET
+			userid = #{userid},
+			senderid = #{senderid},
+			giftid = #{giftid}
+			date = #{date}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM t_giftrecord
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -11,11 +11,11 @@ public class GiftRecord extends DataEntity<GiftRecord> {
 
     private static final long serialVersionUID = 1L;
 
-    private String userId;//主播
+    private String userid;//主播
 
-    private String senderId;//送礼物的人
+    private String senderid;//送礼物的人
 
-    private String giftId;//礼物
+    private String giftid;//礼物
 
     private Date date;//时间
 
@@ -26,43 +26,43 @@ public class GiftRecord extends DataEntity<GiftRecord> {
         super(id);
     }
 
-    public GiftRecord(String userId, String senderId, String giftId, Date date) {
-        this.userId = userId;
-        this.senderId = senderId;
-        this.giftId = giftId;
+    public GiftRecord(String userid, String senderid, String giftid, Date date) {
+        this.userid = userid;
+        this.senderid = senderid;
+        this.giftid = giftid;
         this.date = date;
     }
 
-    public GiftRecord(String id, String userId, String senderId, String giftId, Date date) {
+    public GiftRecord(String id, String userid, String senderid, String giftid, Date date) {
         super(id);
-        this.userId = userId;
-        this.senderId = senderId;
-        this.giftId = giftId;
+        this.userid = userid;
+        this.senderid = senderid;
+        this.giftid = giftid;
         this.date = date;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserid() {
+        return userid;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
-    public String getSenderId() {
-        return senderId;
+    public String getSenderid() {
+        return senderid;
     }
 
-    public void setSenderId(String senderId) {
-        this.senderId = senderId;
+    public void setSenderid(String senderid) {
+        this.senderid = senderid;
     }
 
-    public String getGiftId() {
-        return giftId;
+    public String getGiftid() {
+        return giftid;
     }
 
-    public void setGiftId(String giftId) {
-        this.giftId = giftId;
+    public void setGiftid(String giftid) {
+        this.giftid = giftid;
     }
 
     public Date getDate() {
