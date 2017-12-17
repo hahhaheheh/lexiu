@@ -92,13 +92,13 @@ public class CouponResource {
         TCouponOrg tCouponOrg = tCouponOrgService.get(orgCouponId);
         TCoupon tCoupon = tCouponService.get(tCouponOrg.getCouponid());
         TOrg tOrg = tOrgService.get(tCouponOrg.getOrgid());
-        TUsercoupon tmp = new TUsercoupon();
-        List<TUsercoupon> tUsercouponList = tUserCouponService.findList(tmp);
+        TUserCoupon tmp = new TUserCoupon();
+        List<TUserCoupon> tUsercouponList = tUserCouponService.findList(tmp);
         //查询用户是否已经领取过，领取过不可再领
         if(tUsercouponList!=null&&tUsercouponList.size()>0){
             return new ResultModel(2000,"不能重复领取",null);
         }
-        TUsercoupon tUsercoupon = new TUsercoupon();
+        TUserCoupon tUsercoupon = new TUserCoupon();
         tUsercoupon.setCouponid(tCoupon.getId());
         tUsercoupon.setEnddate(tCouponOrg.getEnddate());
         tUsercoupon.setFacevalue(tCoupon.getFacevalue());
@@ -127,7 +127,7 @@ public class CouponResource {
         if(tUser==null){
             return new ResultModel(1000,"用户尚未登录",null);
         }
-        TUsercoupon tUsercoupon = new TUsercoupon();
+        TUserCoupon tUsercoupon = new TUserCoupon();
         tUsercoupon.setUserid(tUser.getId());
         tUsercoupon.setStatus(status);
         return new ResultModel(0,"success",new LinkedHashMap())

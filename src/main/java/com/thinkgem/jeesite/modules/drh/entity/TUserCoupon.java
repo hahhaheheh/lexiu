@@ -15,26 +15,35 @@ import java.util.Date;
  * @author hl
  * @version 2017-11-07
  */
-public class TUsercoupon extends DataEntity<TUsercoupon> {
+public class TUserCoupon extends DataEntity<TUserCoupon> {
 	
 	private static final long serialVersionUID = 1L;
 	private String userid;		// userid
 	private String couponid;		// couponid
 	private String name;
-	private BigDecimal  faceValue;
-	private String orgId;
-	private String orgName;
-	private Date startDate;
-	private Date endDate;
+	private BigDecimal  facevalue;
+	private String orgid;
+	private String orgname;
+	private Date startdate;
+	private Date enddate;
 	private String type;
 	private int status;
+	private String couponorgid;
 	
-	public TUsercoupon() {
+	public TUserCoupon() {
 		super();
 	}
 
-	public TUsercoupon(String id){
+	public TUserCoupon(String id){
 		super(id);
+	}
+
+	public String getCouponorgid() {
+		return couponorgid;
+	}
+
+	public void setCouponorgid(String couponorgid) {
+		this.couponorgid = couponorgid;
 	}
 
 	@Length(min=1, max=64, message="userid长度必须介于 1 和 64 之间")
@@ -63,44 +72,45 @@ public class TUsercoupon extends DataEntity<TUsercoupon> {
 		this.name = name;
 	}
 
-	public BigDecimal getFaceValue() {
-		return faceValue;
+
+	public String getOrgid() {
+		return orgid;
 	}
 
-	public void setFaceValue(BigDecimal faceValue) {
-		this.faceValue = faceValue;
+	public void setOrgid(String orgid) {
+		this.orgid = orgid;
 	}
 
-	public String getOrgId() {
-		return orgId;
+	public String getOrgname() {
+		return orgname;
 	}
 
-	public void setOrgId(String orgId) {
-		this.orgId = orgId;
+	public void setOrgname(String orgname) {
+		this.orgname = orgname;
 	}
 
-	public String getOrgName() {
-		return orgName;
+	public BigDecimal getFacevalue() {
+		return facevalue;
 	}
 
-	public void setOrgName(String orgName) {
-		this.orgName = orgName;
+	public void setFacevalue(BigDecimal facevalue) {
+		this.facevalue = facevalue;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public Date getStartdate() {
+		return startdate;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setStartdate(Date startdate) {
+		this.startdate = startdate;
 	}
 
-	public Date getEndDate() {
-		return endDate;
+	public Date getEnddate() {
+		return enddate;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
 	}
 
 	public String getType() {

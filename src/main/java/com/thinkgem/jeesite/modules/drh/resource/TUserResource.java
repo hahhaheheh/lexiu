@@ -106,7 +106,7 @@ public class TUserResource {
 //                entiry.setContext(code);
 //            }
 //            sessionService.save(entiry);
-            JedisUtils.set("code"+mobile,code,60);
+            JedisUtils.set("code"+mobile,code,90);
             smsService.sendAuthCode(mobile, code);
             return new ResultModel(0,"success",new LinkedHashMap()).put("code",code);
         }catch (Exception e){
@@ -199,10 +199,12 @@ public class TUserResource {
      */
     @RequestMapping("/password/update")
     @ResponseBody
-    public ResultModel findPwd(HttpServletRequest request, String token, String password){
-        TUser user = (TUser) JedisUtils.getObject(token);
+    public ResultModel findPwd(HttpServletRequest request, String mobile, String password){
+        TUser tUser = new TUser();
+        tUser.setUsername(mobile);
+        TUser user = userService.get(tUser);
         if (user==null){
-            return new ResultModel(1000,"用户未登录",null);
+            return new ResultModel(1000,"用户不存在",null);
         }else {
             user.setPassword(password);
             userService.save(user);

@@ -6,12 +6,13 @@ package com.thinkgem.jeesite.modules.drh.service;
 import java.util.List;
 
 import com.thinkgem.jeesite.modules.drh.dao.TUserCouponDao;
+import com.thinkgem.jeesite.modules.drh.entity.TUserCoupon;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
-import com.thinkgem.jeesite.modules.drh.entity.TUsercoupon;
+
 
 /**
  * usercouponService
@@ -20,27 +21,30 @@ import com.thinkgem.jeesite.modules.drh.entity.TUsercoupon;
  */
 @Service
 @Transactional(readOnly = true)
-public class TUserCouponService extends CrudService<TUserCouponDao, TUsercoupon> {
+public class TUserCouponService extends CrudService<TUserCouponDao, TUserCoupon> {
 
-	public TUsercoupon get(String id) {
+	public TUserCoupon get(String id) {
 		return super.get(id);
 	}
 	
-	public List<TUsercoupon> findList(TUsercoupon tUsercoupon) {
+	public List<TUserCoupon> findList(TUserCoupon tUsercoupon) {
 		return super.findList(tUsercoupon);
 	}
 	
-	public Page<TUsercoupon> findPage(Page<TUsercoupon> page, TUsercoupon tUsercoupon) {
+	public Page<TUserCoupon> findPage(Page<TUserCoupon> page, TUserCoupon tUsercoupon) {
 		return super.findPage(page, tUsercoupon);
 	}
-	
+
+	public TUserCouponService() {
+	}
+
 	@Transactional(readOnly = false)
-	public void save(TUsercoupon tUsercoupon) {
+	public void save(TUserCoupon tUsercoupon) {
 		super.save(tUsercoupon);
 	}
 	
 	@Transactional(readOnly = false)
-	public void delete(TUsercoupon tUsercoupon) {
+	public void delete(TUserCoupon tUsercoupon) {
 		super.delete(tUsercoupon);
 	}
 	
